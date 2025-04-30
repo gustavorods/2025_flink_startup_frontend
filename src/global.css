@@ -1,14 +1,5 @@
-<<<<<<< HEAD
-:root{
-
-
-
-  
-}
-=======
-@import "tailwindcss";
->>>>>>> ea9f3222b4815f689805f66293fdc5cb4d67d908
 @import url('https://fonts.googleapis.com/css2?family=Montserrat+Alternates&display=swap');
+@import "tailwindcss";
 
 :root {
   /* Paleta Verde */

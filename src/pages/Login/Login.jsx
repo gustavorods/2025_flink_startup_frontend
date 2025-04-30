@@ -1,5 +1,5 @@
 import React from 'react'
-import { FileButton, FirstLink, FirstButton } from './components'
+import { FileButton, FirstLink, FirstButton } from '../../components'
 import style from './Login.module.css'
 
 
