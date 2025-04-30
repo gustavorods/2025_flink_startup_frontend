@@ -1,11 +1,43 @@
+<<<<<<< HEAD
 :root{
 
 
 
   
 }
+=======
+@import "tailwindcss";
+>>>>>>> ea9f3222b4815f689805f66293fdc5cb4d67d908
 @import url('https://fonts.googleapis.com/css2?family=Montserrat+Alternates&display=swap');
 
+:root {
+  /* Paleta Verde */
+  --green-primary: #1b5e20;
+  --green-secondary: #4D9B50;
+  --green-background: #e8f5e9;
+  --green-accent: #81c784;
+  --green-highlight: #388e3c;
+  --green-text: #004d40;
+  --green-text-secondary: #4caf50;
+  --green-success: #2e7d32;
+  --green-error: #c62828;
+
+  /* Cards informativos */
+  --card-light: #f1f8e9;
+  --card-dark: #33691e;
+
+  /* Card de Login */
+  --card-login: #4D9B50;
+
+  /* Cores para Inputs */
+  --input-background: #f5f5f5;
+  --input-focus: #388e3c;
+  --input-text: #004d40;
+
+  /* Branco mais escuro para contraste */
+  --white-dark: #f1f1f1;
+  --white-darker: #e0e0e0;
+}
 
 body {
     font-family: 'Montserrat Alternates', sans-serif;
