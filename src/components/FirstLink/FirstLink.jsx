@@ -1,9 +1,9 @@
 import React from 'react';
-import './FirstLink.css';
+import style from './FirstLink.module.css'
 
 const FirstLink = ({ texto="Default", destino = '#', cor = '#00695C', tamanho = '1rem' }) => {
   return (
-    <a href={destino} className="FirstLink" style={{ color: cor, fontSize: tamanho }}>
+    <a href={destino} className={style.FirstLink} style={{ color: cor, fontSize: tamanho }}>
       {texto}
     </a>
   );

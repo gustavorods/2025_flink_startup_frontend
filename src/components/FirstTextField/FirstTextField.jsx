@@ -1,11 +1,11 @@
 import React from 'react';
-import './FirstTextField.css';
+import style from './FirstTextField.module.css'
 
 const FirstTextField = ({ placeholder = 'Digite aqui...', tipo = 'text', tamanho = '1rem'  }) => {
   return (
     <input
       type={tipo}
-      className="FirstTextField"
+      className={style.FirstTextField}
       placeholder={placeholder}
       style={{ fontSize: tamanho }}
     />

@@ -7,7 +7,7 @@ const App = () => {
  
   return (
     <>
-    <NavbarSemLogin />
+    
       <BrowserRouter>
         <Router />
       </BrowserRouter>

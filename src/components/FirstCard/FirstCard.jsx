@@ -1,9 +1,9 @@
 import React from 'react';
-import './FirstCard.css';
+import style from './FirstCard.module.css'
 
 const FirstCard = ({ children }) => {
   return (
-    <div className="FirstCard">
+    <div className={style.FirstCard}>
       {children}
     </div>
   );
