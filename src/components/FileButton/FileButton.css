@@ -1,0 +1,15 @@
+.FileButton {
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #388E3C;
+    color: white;
+    border-radius: 30px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .FileButton:hover {
+    background-color: #2c6e2a; /* Cor escura do botão ao passar o mouse */
+  }
+  

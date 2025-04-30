@@ -1,0 +1,15 @@
+.FirstButton {
+    padding: 10px 20px;                /* Espaço interno */
+    border: none;                      /* Sem borda */
+    border-radius: 100px;               /* Bordas arredondadas */
+    cursor: pointer;                   /* Muda o cursor ao passar o mouse */
+    transition: background-color 0.3s ease; /* Efeito de transição */
+    color: white;                      /* Cor do texto */
+    background-color: #388E3C;         /* Cor do botão */
+    font-family: 'Montserrat Alternates', sans-serif;
+  }
+  
+  .FirstButton:hover {
+    background-color: #2c6e2a;         /* Cor ao passar o mouse */
+  }
+  

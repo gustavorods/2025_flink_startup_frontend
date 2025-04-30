@@ -1,0 +1,13 @@
+.FirstLink {
+    text-decoration: none;
+    font-family: 'Montserrat Alternates', sans-serif;
+    font-weight: 400;
+    transition: color 0.3s;
+    cursor: pointer;
+  }
+  
+  .FirstLink:hover {
+    text-decoration: underline;
+    color: #004D40;
+  }
+  
