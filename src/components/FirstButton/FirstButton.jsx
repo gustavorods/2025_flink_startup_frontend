@@ -1,7 +1,7 @@
 import React from 'react';
 import './FirstButton.css';
 
-const FirstButton = ({ texto, tamanho, cor, tipo = 'button' }) => {
+const FirstButton = ({ texto="Default" , tamanho, cor, tipo = 'button', ...props }) => {
   return (
     <button
       className="FirstButton"
@@ -12,6 +12,7 @@ const FirstButton = ({ texto, tamanho, cor, tipo = 'button' }) => {
         color: 'white',
         borderRadius: '30px',  // Bordas arredondadas
       }}
+      {...props}
     >
       {texto}
     </button>
