@@ -1,10 +1,11 @@
 import './App.css'
-import { FileButton, FirstLink } from './components'
+import { FileButton, FirstLink, NavbarSemLogin } from './components'
 
 const App = () => {
  
   return (
     <>
+    <NavbarSemLogin />
     </>
   )
 }
