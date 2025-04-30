@@ -1,4 +1,4 @@
-import './App.css'
+import './App.css';
 <<<<<<< HEAD
 import { FileButton, FirstLink, FirstButton } from './components'
 import {BrowserRouter} from 'react-router-dom'
