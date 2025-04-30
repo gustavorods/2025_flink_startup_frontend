@@ -1,17 +1,18 @@
 import style from './NavbarSemLogin.module.css'
-import { FirstButton } from '../index'
+import { FirstButton, Logo } from '../index'
 
-const NavbarSemLogin = () => {
+const NavbarSemLogin = ({showButton = true }) => {
     return (
         <div className={style.container}>
             <div className={style.logo}>
-                <img src="" alt="Flink logo" />
+                <Logo />
             </div>
 
-            <div className={style.botao_login}>
-                <FirstButton 
-                texto={"Login"}/>
-            </div>
+            {showButton && (
+                <div className={style.botao_login}>
+                    <FirstButton texto={"Login"} />
+                </div>
+            )}
         </div>
     );
 }
