@@ -1,12 +1,18 @@
 import './App.css'
-import { FileButton, FirstLink } from './components'
+import { FileButton, FirstLink, FirstButton } from './components'
+import {BrowserRouter} from 'react-router-dom'
+import { Router } from './Router'
+
 
 const App = () => {
  
   return (
     <>
+      <BrowserRouter>
+        <Router/>
+      </BrowserRouter>
     </>
   )
 }
 
-export default App
+export { App } 

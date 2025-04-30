@@ -3,9 +3,9 @@ import React from 'react';
 import './FirstTitle.css';
 
 
-const Titulo = ({ texto, tamanho, cor }) => {
+const FirstTitle = ({ texto = "Default", tamanho, cor }) => {
   return (
-    <h1 className="titulo" style={{ fontSize: tamanho, color: cor }}>
+    <h1 className="FirstTitle" style={{ fontSize: tamanho, color: cor }}>
       {texto}
     </h1>
   );
@@ -17,4 +17,4 @@ const Titulo = ({ texto, tamanho, cor }) => {
 
 
 
-export { Titulo };
+export { FirstTitle };
