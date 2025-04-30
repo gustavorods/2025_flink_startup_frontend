@@ -9,4 +9,4 @@ const FirstLink = ({ texto, destino = '#', cor = '#00695C', tamanho = '1rem' }) 
   );
 };
 
-export default FirstLink;
+export { FirstLink };

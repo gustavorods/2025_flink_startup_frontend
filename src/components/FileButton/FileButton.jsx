@@ -37,4 +37,4 @@ const FileButton = ({ texto, tamanho, cor }) => {
   );
 };
 
-export default FileButton;
+export { FileButton };

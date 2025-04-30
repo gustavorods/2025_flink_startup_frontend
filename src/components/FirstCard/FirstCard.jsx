@@ -9,4 +9,4 @@ const FirstCard = ({ children }) => {
   );
 };
 
-export default FirstCard;
+export { FirstCard };

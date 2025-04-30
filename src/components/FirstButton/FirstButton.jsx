@@ -18,4 +18,4 @@ const FirstButton = ({ texto, tamanho, cor, tipo = 'button' }) => {
   );
 };
 
-export default FirstButton;
+export { FirstButton };

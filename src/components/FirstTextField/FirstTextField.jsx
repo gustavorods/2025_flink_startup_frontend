@@ -12,4 +12,4 @@ const FirstTextField = ({ placeholder = 'Digite aqui...', tipo = 'text', tamanho
   );
 };
 
-export default FirstTextField;
+export { FirstTextField };

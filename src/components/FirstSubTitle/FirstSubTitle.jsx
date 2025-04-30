@@ -20,4 +20,4 @@ const FirstSubTitle = ({ texto, tamanho = '1rem', cor = '#004D40', icon: Icon })
   );
 };
 
-export default FirstSubTitle;
+export { FirstSubTitle };

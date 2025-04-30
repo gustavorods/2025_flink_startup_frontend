@@ -17,4 +17,4 @@ const Titulo = ({ texto, tamanho, cor }) => {
 
 
 
-export default Titulo;
+export { Titulo };
