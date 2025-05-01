@@ -5,7 +5,6 @@
     cursor: pointer;                   /* Muda o cursor ao passar o mouse */
     transition: background-color 0.3s ease; /* Efeito de transição */
     color: white;                      /* Cor do texto */
-    background-color: #388E3C;         /* Cor do botão */
     font-family: 'Montserrat Alternates', sans-serif;
   }
   
