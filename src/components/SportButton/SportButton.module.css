@@ -1,0 +1,21 @@
+.buttonBase {
+    border: 2px solid #388E3C;
+    margin: 6px;
+    transition: all 0.2s ease-in-out;
+  }
+  
+  .selected {
+    background-color: #388E3C !important;
+    color: white !important;
+  }
+  
+  .unselected {
+    background-color: white !important;
+    color: #388E3C !important;
+  }
+  
+  .buttonBase:hover {
+    filter: brightness(0.95);
+    cursor: pointer;
+  }
+  
