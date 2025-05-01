@@ -1,10 +1,10 @@
 import React from 'react';
-import './FirstSubTitle.css';
+import style from './FirstSubTitle.module.css'
 
 const FirstSubTitle = ({ texto="Default", tamanho = '1rem', cor = '#004D40', icon: Icon }) => {
   return (
     <h2
-      className="FirstSubTitle"
+      className={style.FirstSubTitle}
       style={{
         fontSize: tamanho,
         color: cor,

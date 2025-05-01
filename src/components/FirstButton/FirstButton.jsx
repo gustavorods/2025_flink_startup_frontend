@@ -1,10 +1,10 @@
 import React from 'react';
-import './FirstButton.css';
+import style from './FirstButton.module.css'
 
 const FirstButton = ({ texto="Default" , tamanho, cor, tipo = 'button', ...props }) => {
   return (
     <button
-      className="FirstButton"
+      className={style.FirstButton}
       type={tipo}  // Aqui o tipo é configurado via props
       style={{
         fontSize: tamanho,

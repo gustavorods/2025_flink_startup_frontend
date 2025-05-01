@@ -1,6 +1,5 @@
 import React, { useRef } from 'react';
-import './FileButton.css';  // Adapte o nome do CSS se necessário
-
+import style from './FileButton.module.css'
 const FileButton = ({ texto, tamanho, cor }) => {
   const inputFileRef = useRef(null); // Ref para o input do tipo file
 
@@ -13,7 +12,7 @@ const FileButton = ({ texto, tamanho, cor }) => {
     <div>
       {/* Botão estilizado */}
       <button
-        className="FileButton"
+        className={style.FileButton}
         type="button"
         style={{
           fontSize: tamanho,

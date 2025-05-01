@@ -6,4 +6,5 @@ export * from './FirstSubTitle';
 export * from './FirstTextField';
 export * from './FirstTitle';
 export * from './NavbarSemLogin'
+export * from './SportButton'
 export * from './Logo'
