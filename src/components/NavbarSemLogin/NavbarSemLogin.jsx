@@ -10,7 +10,14 @@ const NavbarSemLogin = ({showButton = true }) => {
 
             {showButton && (
                 <div className={style.botao_login}>
-                    <FirstButton texto={"Login"} />
+                    <FirstButton 
+                    texto="Login"
+                    cor="transparent" 
+                    style={{
+                        color: 'var(--green-text)',
+                        border: '2px solid var(--green-primary)',
+                        width: '8rem'
+                    }} />
                 </div>
             )}
         </div>

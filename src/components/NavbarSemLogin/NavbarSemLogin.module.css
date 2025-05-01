@@ -3,4 +3,6 @@
     align-items: center;
     justify-content: space-between;
     padding: 0.5rem;
+    background: #98948B;
+    background: linear-gradient(180deg, rgba(152, 148, 139, 0.69) 0%, rgba(232, 245, 233, 1) 74%);
 }
