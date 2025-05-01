@@ -48,12 +48,12 @@ const RecSenha = () => {
 
   return (
     <FirstCard>
-      <FirstTitle texto="Recuperar senha" tamanho="30px" cor="#004D40" />
+      <FirstTitle texto="Recuperar senha" tamanho="2.5rem" cor="#004D40" />
       <br />
 
       {step === 1 && (
         <>
-          <FirstSubTitle texto="Relaxa, acontece com todos" tamanho="1rem" cor="#00695C" />
+          <FirstSubTitle texto="Relaxa, acontece com todos" tamanho="24px" cor="#00695C" />
           <br />
           <form onSubmit={handleEnviarCodigo}>
             <FirstSubTitle
@@ -70,7 +70,7 @@ const RecSenha = () => {
               aoMudar={(e) => setEmail(e.target.value)}
               requerido
             />
-            <br />
+            <br /><br/>
             <FirstButton texto="Enviar código" tamanho="1rem" cor="#388E3C" tipo="submit" />
           </form>
         </>
@@ -78,7 +78,7 @@ const RecSenha = () => {
 
       {step === 2 && (
         <>
-          <FirstSubTitle texto="Enviamos um código :)" tamanho="1rem" cor="#00695C" />
+          <FirstSubTitle texto="Enviamos um código :)" tamanho="20px  " cor="#00695C" />
           <br />
           <form onSubmit={handleVerificarCodigo}>
             <FirstSubTitle
@@ -95,7 +95,7 @@ const RecSenha = () => {
               aoMudar={(e) => setCodigo(e.target.value)}
               requerido
             />
-            <br />
+            <br /><br/>
             <FirstButton texto="Continuar" tamanho="1rem" cor="#2E7D32" tipo="submit" />
           </form>
         </>
@@ -103,7 +103,7 @@ const RecSenha = () => {
 
       {step === 3 && (
         <>
-          <FirstSubTitle texto="Qual será sua nova senha? :O" tamanho="1rem" cor="#00695C" />
+          <FirstSubTitle texto="Qual será sua nova senha? :O" tamanho="20px" cor="#00695C" />
           <br />
           <form onSubmit={handleAlterarSenha}>
             <FirstSubTitle
@@ -119,7 +119,7 @@ const RecSenha = () => {
               valor={novaSenha}
               aoMudar={(e) => setNovaSenha(e.target.value)}
               requerido
-            />
+            /><br/><br/>
             <FirstSubTitle
               texto="Confirmar senha"
               tamanho="1rem"
@@ -134,7 +134,7 @@ const RecSenha = () => {
               aoMudar={(e) => setConfirmarSenha(e.target.value)}
               requerido
             />
-            <br />
+            <br /><br/>
             <FirstButton texto="Definir nova senha" tamanho="1rem" cor="#2E7D32" tipo="submit" />
           </form>
         </>

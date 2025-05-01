@@ -7,9 +7,10 @@ import { FirstCard, FirstTitle, FirstSubTitle, FirstTextField, FirstButton, Firs
 const Login = () => {
   return (
     <>
+    
       <FirstCard>
-        <FirstTitle texto="Login" tamanho="30px" cor="#004D40"/> {/* O título vai para dentro do FirstCard */}<br/>
-        <FirstSubTitle texto="Olá, que bom que você voltou!" tamanho="1rem" cor="#00695C" /><br/>
+        <b><FirstTitle texto="Login" tamanho="2.5rem" cor="#004D40" /> </b>{/* O título vai para dentro do FirstCard */}<br/>
+        <FirstSubTitle texto="Olá, que bom que você voltou!" tamanho="23px" cor="#00695C" /><br/>
 
         <FirstSubTitle texto="Email" tamanho="1rem" cor="#00695C"icon={PersonOutlineIcon} />
         <FirstTextField placeholder="Digite seu Email" tipo="email" tamanho="1rem" />
@@ -19,12 +20,13 @@ const Login = () => {
 <br/><br/>
         <FirstButton texto="Entrar" tamanho="1rem" cor="#388E3C" tipo="submit" />
 <br></br><br></br>
-        <FirstLink texto="Recuperar Senha" destino = '#' cor = '#00695C' tamanho = '1rem'/><br/>
-        <FirstLink texto="Criar Conta" destino = '#' cor = '#00695C' tamanho = '1rem'/>
+        <u><FirstLink texto="Recuperar Senha" destino = '#' cor = '#00695C' tamanho = '1rem'/><br/></u>
+        <u><FirstLink texto="Criar Conta" destino = '#' cor = '#00695C' tamanho = '1rem'/></u>
 
 
 
       </FirstCard>
+      
     </>
   );
 };

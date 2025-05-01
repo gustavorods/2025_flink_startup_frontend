@@ -1,0 +1,9 @@
+body {
+text-align: center;
+display: flex;
+justify-content: center;  /* centraliza horizontalmente */
+align-items: center;      /* centraliza verticalmente */
+height: 100vh;            /* ocupa 100% da altura da tela */
+width: 100vw;  
+  }
+  

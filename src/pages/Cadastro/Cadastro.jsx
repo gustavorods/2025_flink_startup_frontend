@@ -4,6 +4,7 @@ import LockIcon from '@mui/icons-material/Lock'
 import InstagramIcon from '@mui/icons-material/Instagram';
 import AudiotrackIcon from '@mui/icons-material/Audiotrack';
 import XIcon from '@mui/icons-material/X';
+import style from './Cadastro.module.css'
 
 import { 
   FirstCard, FirstTitle, FirstSubTitle, 
@@ -47,8 +48,8 @@ const Cadastro = () => {
 
       {etapa === 1 && (
         <>
-         <b><FirstTitle texto="Cadastro" tamanho="30px" cor="#004D40" /></b> <br />
-          <FirstSubTitle texto="O primeiro Passo é o mais importante!" tamanho="1rem" cor="#00695C" /><br />
+         <b><FirstTitle texto="Cadastro" tamanho="2.5rem" cor="#004D40" /></b> <br />
+          <FirstSubTitle texto="O primeiro Passo é o mais importante!" tamanho="24px" cor="#00695C" /><br />
 
           <FirstSubTitle texto="Nome" tamanho="1rem" cor="#00695C" icon={PersonOutlineIcon} />
           <FirstTextField placeholder="Digite seu Nome" tipo="text" tamanho="1rem" /><br /><br />
@@ -70,8 +71,8 @@ const Cadastro = () => {
 
       {etapa === 2 && (
         <>
-          <b><FirstTitle texto="Crie sua senha" tamanho="30px" cor="#004D40" /></b><br />
-          <FirstSubTitle texto="Proteja sua conta com uma senha segura" tamanho="1rem" cor="#00695C" /><br />
+          <b><FirstTitle texto="Crie sua senha" tamanho="2.5rem" cor="#004D40" /></b><br />
+          <FirstSubTitle texto="Proteja sua conta com uma senha segura" tamanho="24px" cor="#00695C" /><br />
 
           <FirstSubTitle texto="Senha" tamanho="1rem" cor="#00695C" icon={LockIcon} />
           <FirstTextField placeholder="Digite sua senha" tipo="password" tamanho="1rem" /><br /><br />
@@ -91,8 +92,8 @@ const Cadastro = () => {
 
       {etapa === 3 && (
         <>
-         <b><FirstTitle texto="Cadastro" tamanho="30px" cor="#004D40" /></b> <br />
-          <FirstSubTitle texto="O que você gosta de fazer?" tamanho="1.5rem" cor="#00695C" /><br />
+         <b><FirstTitle texto="Cadastro" tamanho="2.5rem" cor="#004D40" /></b> <br />
+          <FirstSubTitle texto="O que você gosta de fazer?" tamanho="26px" cor="#00695C" /><br />
 
           <div style={{ display: 'flex', flexWrap: 'wrap', gap: '18px', marginTop: '10px' }}>
             {esportes.map((esporte) => (
@@ -121,8 +122,8 @@ const Cadastro = () => {
 
 {etapa === 4 && (
         <>
-          <b><FirstTitle texto="Cadastro" tamanho="30px" cor="#004D40" /></b><br />
-          <FirstSubTitle texto="Escolha sua melhor foto;)" tamanho="1.5rem" cor="#00695C" /><br />
+          <b><FirstTitle texto="Cadastro" tamanho="2.5rem" cor="#004D40" /></b><br />
+          <FirstSubTitle texto="Escolha sua melhor foto;)" tamanho="28px" cor="#00695C" /><br />
 
 <FileButton texto="Escolher foto" tamanho= "0.8rem"></FileButton>
 
@@ -140,7 +141,7 @@ const Cadastro = () => {
       )}
       {etapa === 5 && (
         <>
-         <b><FirstTitle texto="Cadastro" tamanho="30px" cor="#004D40" /><br /></b>
+         <b><FirstTitle texto="Cadastro" tamanho="2.5rem" cor="#004D40" /><br /></b>
           <FirstSubTitle texto="Quais Sao Suas Redes Sociais?" tamanho="1.5rem" cor="#00695C" /><br />
           <FirstSubTitle texto="Instagram (Opcional)" tamanho="1rem" cor="#00695C" icon={InstagramIcon} />
           <FirstTextField placeholder="Digite seu Nome" tipo="text" tamanho="1rem" /><br /><br />
@@ -166,8 +167,8 @@ const Cadastro = () => {
 
 {etapa === 6 && (
         <>
-          <b><FirstTitle texto="Cadastro" tamanho="30px" cor="#004D40" /></b><br />
-          <FirstSubTitle texto="Como Gostaria de ser Chamado?" tamanho="1.5rem" cor="#00695C" /><br />
+          <b><FirstTitle texto="Cadastro" tamanho="2.5rem" cor="#004D40" /></b><br />
+          <FirstSubTitle texto="Como Gostaria de ser Chamado?" tamanho="24px" cor="#00695C" /><br />
           <FirstSubTitle texto="Nome" tamanho="1rem" cor="#00695C" icon={PersonOutlineIcon} />
           <FirstTextField placeholder="Digite seu Nome" tipo="text" tamanho="1rem" /><br /><br />
          
@@ -187,6 +188,7 @@ const Cadastro = () => {
       )}
 
     </FirstCard>
+    
   )
 }
 
