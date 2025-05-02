@@ -1,3 +1,4 @@
 export * from './auth';
+export * from './errors';
 export * from './RecSenha';
-export * from './Erro404';
+export * from './erro/Erro404';
