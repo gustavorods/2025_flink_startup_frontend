@@ -1,10 +1,13 @@
 import React from 'react'
 import style from './Login.module.css'
+import { useNavigate } from 'react-router-dom';
 import PersonOutlineIcon from '@mui/icons-material/PersonOutline'
 import LockIcon from '@mui/icons-material/Lock';
 import { FirstCard, FirstTitle, FirstSubTitle, FirstTextField, FirstButton, FirstLink } from '../../../components'
 
 const Login = () => {
+  const navigate = useNavigate();
+
   return (
     <>
 
@@ -21,7 +24,15 @@ const Login = () => {
           <br /><br />
           <FirstButton texto="Entrar" tamanho="1rem" cor="#388E3C" tipo="submit" />
           <br></br><br></br>
-          <u><FirstLink texto="Recuperar Senha" destino='#' cor='#00695C' tamanho='1rem' /><br /></u>
+          <u>
+            <FirstLink
+              texto="Recuperar Senha"
+              onClick={() => navigate('/RecSenha')}
+              cor='#00695C'
+              tamanho='1rem'
+            />
+            <br />
+          </u>
           <u><FirstLink texto="Criar Conta" destino='#' cor='#00695C' tamanho='1rem' /></u>
 
 
