@@ -4,7 +4,7 @@ import { Login } from './pages';
 import { Cadastro } from './pages';
 import { RecSenha } from './pages'
 import { UserListTest } from './test';
-import { Erro404 } from './pages';
+import { Erro404 } from './pages'; // Importando o componente Erro404
 
 const Router = () => {
   return (
