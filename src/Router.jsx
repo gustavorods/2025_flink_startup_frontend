@@ -8,8 +8,10 @@ const Router = () => {
   return (
       <Routes>
         <Route path="/Login" element={<Login />} /> {/* Certificando-se de que a URL seja /Login */}
-        <Route path ="/RecSenha" element={<RecSenha />} /> 
-        <Route path="/Cadastro" element={<Cadastro />} /> {/* Certificando-se de que a URL seja /Login */}
+      <Route path="/RecSenha" element={<RecSenha />} />
+      <Route path="/Cadastro" element={<Cadastro />} /> {/* Certificando-se de que a URL seja /Cadastro */}
+
+      <Route path="*" element={<Erro404 />} />
       </Routes>
   );
 };
