@@ -5,6 +5,7 @@ import InstagramIcon from '@mui/icons-material/Instagram';
 import AudiotrackIcon from '@mui/icons-material/Audiotrack';
 import XIcon from '@mui/icons-material/X';
 import style from './Cadastro.module.css'
+import { useNavigate } from 'react-router-dom';
 
 import {
   FirstCard, FirstTitle, FirstSubTitle,
@@ -14,6 +15,8 @@ import {
 
 
 const Cadastro = () => {
+  const navigate = useNavigate()
+
   const [etapa, setEtapa] = useState(1)
   const [esportesSelecionados, setEsportesSelecionados] = useState([])
 
@@ -67,7 +70,13 @@ const Cadastro = () => {
               onClick={irParaProximaEtapa}
             />
             <br /><br />
-            <u><FirstLink texto="Já tenho uma conta" destino="#" cor="#00695C" tamanho="1rem" /></u>
+            <u><FirstLink 
+            texto="Já tenho uma conta" 
+            onClick={() => navigate('/Login')}
+            cor="#00695C" 
+            tamanho="1rem" 
+            />
+            </u>
           </>
         )}
 
@@ -147,7 +156,7 @@ const Cadastro = () => {
             <FirstSubTitle texto="Quais Sao Suas Redes Sociais?" tamanho="1.5rem" cor="#00695C" /><br />
             <FirstSubTitle texto="Instagram (Opcional)" tamanho="1rem" cor="#00695C" icon={InstagramIcon} />
             <FirstTextField placeholder="Digite seu Nome" tipo="text" tamanho="1rem" /><br /><br />
-            <FirstSubTitle texto="(Opcional)" tamanho="1rem" cor="#00695C" icon={XIcon} />
+            <FirstSubTitle texto="X (Opcional)" tamanho="1rem" cor="#00695C" icon={XIcon} />
             <FirstTextField placeholder="Digite seu Nome" tipo="text" tamanho="1rem" /><br /><br />
             <FirstSubTitle texto="TikTok (Opcional)" tamanho="1rem" cor="#00695C" icon={AudiotrackIcon} />
             <FirstTextField placeholder="Digite seu Nome" tipo="text" tamanho="1rem" /><br /><br />
@@ -185,7 +194,7 @@ const Cadastro = () => {
 
             />
             <br /><br />
-            <u><FirstLink texto="Já tenho uma conta" destino="#" cor="#00695C" tamanho="1rem" /></u>
+            <u><FirstLink texto="Já tenho uma conta" onClick={() => navigate('/Login')} cor="#00695C" tamanho="1rem" /></u>
           </>
         )}
 

@@ -2,6 +2,8 @@ import React, { useState } from 'react'
 import PersonOutlineIcon from '@mui/icons-material/PersonOutline'
 import LockIcon from '@mui/icons-material/Lock'
 import KeyIcon from '@mui/icons-material/VpnKey'
+import { useNavigate } from 'react-router-dom';
+
 
 import {
   FirstCard,
@@ -13,6 +15,8 @@ import {
 } from '../../components'
 
 const RecSenha = () => {
+  const navigate = useNavigate();
+
   //Controla qual etapa está visivel  
   const [step, setStep] = useState(1)
 
@@ -72,6 +76,8 @@ const RecSenha = () => {
             />
             <br /><br/>
             <FirstButton texto="Enviar código" tamanho="1rem" cor="#388E3C" tipo="submit" />
+            <br /><br/>
+            <FirstLink texto="Voltar Para Login" onClick={() => navigate('/Login')} cor="#00695C" tamanho="1rem" />
           </form>
         </>
       )}
@@ -140,10 +146,6 @@ const RecSenha = () => {
         </>
       )}
 
-      <br />
-      <FirstLink texto="Recuperar Senha" destino="#" cor="#00695C" tamanho="1rem" />
-      <br />
-      <FirstLink texto="Criar Conta" destino="#" cor="#00695C" tamanho="1rem" />
     </FirstCard>
   )
 }

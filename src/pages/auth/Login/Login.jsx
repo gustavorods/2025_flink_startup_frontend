@@ -33,7 +33,13 @@ const Login = () => {
             />
             <br />
           </u>
-          <u><FirstLink texto="Criar Conta" destino='#' cor='#00695C' tamanho='1rem' /></u>
+          <u><FirstLink
+            texto="Criar Conta"
+            onClick={() => navigate('/Cadastro')}
+            cor='#00695C'
+            tamanho='1rem'
+          />
+          </u>
 
 
 
