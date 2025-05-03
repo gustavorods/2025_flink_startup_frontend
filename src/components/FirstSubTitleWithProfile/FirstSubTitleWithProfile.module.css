@@ -1,0 +1,30 @@
+
+/* Container principal do componente */
+.first-subtitle-with-profile {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  /* Estilo da imagem de perfil */
+  .profile-image {
+    width: 48px; /* Tamanho da imagem */
+    height: 48px;
+    border-radius: 50%;
+    cursor: pointer;
+    object-fit: cover; /* Garantir que a imagem não distorça */
+    transition: transform 0.3s ease; /* Efeito de transição */
+  }
+  
+  .profile-image:hover {
+    transform: scale(1.1); /* Efeito de zoom ao passar o mouse */
+  }
+  
+  /* Estilo do nome (texto) */
+  .profile-name {
+    font-size: 2px; /* Ajustado para ficar bem menor */
+    font-weight: 600; /* Negrito */
+    color: #333; /* Cor do texto */
+    margin: 0;
+  }
+  

@@ -9,3 +9,4 @@ export * from './NavbarSemLogin'
 export * from './SportButton'
 export * from './Logo'
 export * from './PrivateRoute';
+export * from './FirstSubTitleWithProfile';
