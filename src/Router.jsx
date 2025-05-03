@@ -5,6 +5,7 @@ import { Cadastro } from './pages';
 import { RecSenha } from './pages'
 import { UserListTest } from './test';
 import { Erro404 } from './pages'; // Importando o componente Erro404
+import { PrivateRoute } from './components';
 
 const Router = () => {
   return (
@@ -15,10 +16,20 @@ const Router = () => {
 
       <Route path="*" element={<Erro404 />} />
 
-      {import.meta.env.VITE_SHOW_TEST_PAGES === 'true' && (
-        <Route path="/UserListTest" element={<UserListTest />} />
-      )}
-      
+      {/* Rota protegida */}
+      <Route
+        path="/UserListTest"
+        element={
+          <PrivateRoute>
+            {import.meta.env.VITE_SHOW_TEST_PAGES === 'true' && (
+              <UserListTest />
+            )}
+          </PrivateRoute>
+        }
+      />
+
+
+
     </Routes>
   );
 };

@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import style from './UserListTest.module.css'; // Importando o CSS do componente
 import axios from 'axios';
 
 const UserListTest = () => {
@@ -22,7 +23,7 @@ const UserListTest = () => {
   }, []);
 
   return (
-    <div>
+    <div className={style.UserListTest}>
       <h1>Lista de Usuários</h1>
       {isLoading ? (
         <p>Carregando...</p> // mostrado enquanto isLoading for true
