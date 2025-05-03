@@ -25,6 +25,7 @@ const Erro404 = () => {
             </Typography>
             <br />
             <FirstButton
+                texto='Voltar para o início'
                 cor="#388E3C"
                 onClick={() => navigate('/Login')}
             />

@@ -70,12 +70,13 @@ const Cadastro = () => {
               onClick={irParaProximaEtapa}
             />
             <br /><br />
-            <u><FirstLink 
-            texto="Já tenho uma conta" 
-            onClick={() => navigate('/Login')}
-            cor="#00695C" 
-            tamanho="1rem" 
-            />
+            <u>
+              <FirstLink
+                texto="Já tenho uma conta"
+                onClick={() => navigate('/Login')}
+                cor="#00695C"
+                tamanho="1rem"
+              />
             </u>
           </>
         )}
@@ -127,7 +128,14 @@ const Cadastro = () => {
               onClick={irParaProximaEtapa}
             />
             <br /><br />
-            <u><FirstLink texto="Já tenho uma conta" destino="#" cor="#00695C" tamanho="1rem" /></u>
+            <u>
+              <FirstLink
+                texto="Já tenho uma conta"
+                onClick={() => navigate('/Login')}
+                cor="#00695C"
+                tamanho="1rem"
+              />
+            </u>
           </>
         )}
 
@@ -147,7 +155,14 @@ const Cadastro = () => {
               onClick={irParaProximaEtapa}
             />
             <br /><br />
-            <u><FirstLink texto="Já tenho uma conta" destino="#" cor="#00695C" tamanho="1rem" /></u>
+            <u>
+              <FirstLink
+                texto="Já tenho uma conta"
+                onClick={() => navigate('/Login')}
+                cor="#00695C"
+                tamanho="1rem"
+              />
+            </u>
           </>
         )}
         {etapa === 5 && (
@@ -171,7 +186,14 @@ const Cadastro = () => {
               onClick={irParaProximaEtapa}
             />
             <br /><br />
-            <u><FirstLink texto="Já tenho uma conta" destino="#" cor="#00695C" tamanho="1rem" /></u>
+            <u>
+              <FirstLink
+                texto="Já tenho uma conta"
+                onClick={() => navigate('/Login')}
+                cor="#00695C"
+                tamanho="1rem"
+              />
+            </u>
           </>
         )}
 
@@ -194,7 +216,14 @@ const Cadastro = () => {
 
             />
             <br /><br />
-            <u><FirstLink texto="Já tenho uma conta" onClick={() => navigate('/Login')} cor="#00695C" tamanho="1rem" /></u>
+            <u>
+              <FirstLink
+                texto="Já tenho uma conta"
+                onClick={() => navigate('/Login')}
+                cor="#00695C"
+                tamanho="1rem"
+              />
+            </u>
           </>
         )}
 
