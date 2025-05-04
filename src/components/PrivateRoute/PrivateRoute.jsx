@@ -1,26 +1,22 @@
+import React, { useContext } from 'react';
 import { Navigate } from 'react-router-dom';
-import { jwtDecode } from 'jwt-decode';
+import { AuthContext } from '../../context';
+import { useLoading } from '../../context/LoadingContext'; // Importe o hook useLoading
+import { Spinner } from '../Spinner';
 
 const PrivateRoute = ({ children }) => {
-  const token = sessionStorage.getItem('token');
+  const { user, isAuthenticated } = useContext(AuthContext); // Obtenha user e isAuthenticated do AuthContext
+  const { isLoading } = useLoading(); // Obtenha isLoading do LoadingContext
 
-  if (!token) return <Navigate to="/login" replace />;
+  if (isLoading) {
+    return <Spinner />;
+  }
 
-  try {
-    const decoded = jwtDecode(token);
-
-    // Verifica se o token está expirado (exp é em segundos)
-    if (decoded.exp * 1000 < Date.now()) {
-      sessionStorage.removeItem('token'); // remove o token expirado
-      return <Navigate to="/login" replace />;
-    }
-
-    return children; // token válido
-  } catch (error) {
-    // Token malformado
-    sessionStorage.removeItem('token');
+  if (!isAuthenticated) { // É mais seguro verificar isAuthenticated
     return <Navigate to="/login" replace />;
   }
+
+  return children;
 };
 
 export { PrivateRoute };

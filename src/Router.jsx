@@ -15,24 +15,24 @@ const Router = () => {
       <Route path="/Login" element={<Login />} /> {/* Certificando-se de que a URL seja /Login */}
       <Route path="/RecSenha" element={<RecSenha />} />
       <Route path="/Cadastro" element={<Cadastro />} /> {/* Certificando-se de que a URL seja /Cadastro */}
-      <Route path="/timeline" element={<Timeline />} /> 
+      <Route path="/timeline" element={<Timeline />} />
       <Route path="/Profilepage" element={<Profilepage />} />
+      <Route path="/user-list-test" element={<UserListTest />} />
 
       <Route path="*" element={<Erro404 />} />
 
       {/* Rota protegida */}
-      <Route
-        path="/UserListTest"
-        element={
-          <PrivateRoute>
-            {import.meta.env.VITE_SHOW_TEST_PAGES === 'true' && (
+      {/* verifica se a variável de ambiente está definida como 'true' */}
+      {/* {import.meta.env.VITE_SHOW_TEST_PAGES === 'true' && (
+        <Route
+          path="/user-list-test"
+          element={
+            <PrivateRoute>
               <UserListTest />
-            )}
-          </PrivateRoute>
-        }
-      />
-
-
+            </PrivateRoute>
+          }
+        />
+      )} */}
 
     </Routes>
   );

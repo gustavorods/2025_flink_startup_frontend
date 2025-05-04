@@ -1,10 +1,11 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react' // Importe useContext
 import style from './Login.module.css'
 import { useNavigate } from 'react-router-dom';
 import PersonOutlineIcon from '@mui/icons-material/PersonOutline'
 import LockIcon from '@mui/icons-material/Lock';
 import { FirstCard, FirstTitle, FirstSubTitle, FirstTextField, FirstButton, FirstLink } from '../../../components'
-import axios from 'axios';
+import { AuthContext } from '../../../context'; // Importe o AuthContext
+// Remova a importação do axios se não for mais usada aqui
 
 const Login = () => {
   const navigate = useNavigate();
@@ -12,35 +13,23 @@ const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState(null);
+  const { login } = useContext(AuthContext); // Obtenha a função login do contexto
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    setError(null); // Limpe erros anteriores
 
-    try {
-      const response = await axios.post('http://localhost:3000/api/login', {
-        email,
-        password,
-      });
+    // Use a função login do AuthContext
+    const result = await login(email, password);
 
-      // Armazena o token JWT no sessionStorage
-      sessionStorage.setItem('token', response.data.token);
-
+    if (result.success) {
       // Redireciona para o timeline após login bem-sucedido
-      navigate('/RecSenha')
-
-    } catch (err) {
-      // Verifica se há uma resposta de erro do backend
-      if (err.response) {
-        // Erro com resposta do servidor
-        setError(err.response.data.error || 'Erro desconhecido no servidor');
-      } else if (err.request) {
-        // Erro de rede ou requisição
-        setError('Erro de rede. Tente novamente.');
-      } else {
-        // Erro na configuração da requisição
-        setError('Erro ao configurar a requisição.');
-      }
-      console.error('Erro no login', err);
+      // TODO: Mudar para a rota correta após o login, ex: '/timeline' ou '/'
+      navigate('/timeline'); // Ajuste esta rota conforme necessário
+    } else {
+      // Define a mensagem de erro retornada pelo AuthProvider
+      setError(result.error || 'Falha no login.');
+      console.error('Erro no login:', result.error);
     }
   };
 
@@ -108,4 +97,3 @@ const Login = () => {
 
 
 export { Login }
-
