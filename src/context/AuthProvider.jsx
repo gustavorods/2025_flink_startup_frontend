@@ -52,6 +52,34 @@ export const AuthProvider = ({ children }) => {
     }
   }, [showLoading, hideLoading]);
 
+  // Função de registro
+  const register = async (novoUsuario) => {
+    showLoading(); // Mostra o spinner global
+  
+    try {
+      const response = await axios.post('http://localhost:3000/api/criar-novo-user', novoUsuario);
+  
+      const token = response.data.token;
+      sessionStorage.setItem('token', token);
+  
+      const decoded = jwtDecode(token);
+      setUser(decoded);
+      setIsAuthenticated(true);
+  
+      return { success: true, token };
+    } catch (err) {
+      let message = 'Erro desconhecido';
+      if (err.response) message = err.response.data.error || message;
+      else if (err.request) message = 'Erro de rede. Tente novamente.';
+      else message = 'Erro ao configurar a requisição.';
+  
+      return { success: false, error: message };
+    } finally {
+      hideLoading(); // Oculta o spinner
+    }
+  };
+  
+
   // Função de login
   const login = async (email, password) => {
     showLoading(); // Inicia o carregamento enquanto autentica
@@ -94,6 +122,7 @@ export const AuthProvider = ({ children }) => {
         isAuthenticated,
         login,
         logout,
+        register,
       }}
     >
       {children}

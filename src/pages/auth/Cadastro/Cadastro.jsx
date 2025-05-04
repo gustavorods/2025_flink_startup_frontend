@@ -6,6 +6,8 @@ import AudiotrackIcon from '@mui/icons-material/Audiotrack';
 import XIcon from '@mui/icons-material/X';
 import style from './Cadastro.module.css'
 import { useNavigate } from 'react-router-dom';
+import { useContext } from 'react'
+import { AuthContext } from '../../../context'
 
 import {
   FirstCard, FirstTitle, FirstSubTitle,
@@ -15,10 +17,26 @@ import {
 
 
 const Cadastro = () => {
+  const { register } = useContext(AuthContext);
+
+  const [formData, setFormData] = useState({
+    nome: '',
+    sobrenome: '',
+    password: '',
+    confirmPassword: '',
+    esportes: [],
+    redes_sociais: {
+      instagram: '',
+      x: '',
+      tiktok: '',
+    },
+    username: '',
+  });
+
+
   const navigate = useNavigate()
 
   const [etapa, setEtapa] = useState(1)
-  const [esportesSelecionados, setEsportesSelecionados] = useState([])
 
   const esportes = [
     'Futebol',
@@ -34,12 +52,13 @@ const Cadastro = () => {
 
 
   const toggleEsporte = (esporte) => {
-    setEsportesSelecionados((prev) =>
-      prev.includes(esporte)
-        ? prev.filter((e) => e !== esporte)
-        : [...prev, esporte]
-    )
-  }
+    setFormData((prev) => {
+      const novosEsportes = prev.esportes.includes(esporte)
+        ? prev.esportes.filter((e) => e !== esporte)
+        : [...prev.esportes, esporte];
+      return { ...prev, esportes: novosEsportes };
+    });
+  };
 
   const irParaProximaEtapa = () => {
     setEtapa(etapa + 1)
@@ -57,10 +76,22 @@ const Cadastro = () => {
             <FirstSubTitle texto="O primeiro Passo é o mais importante!" tamanho="24px" cor="#00695C" /><br />
 
             <FirstSubTitle texto="Nome" tamanho="1rem" cor="#00695C" icon={PersonOutlineIcon} />
-            <FirstTextField placeholder="Digite seu Nome" tipo="text" tamanho="1rem" /><br /><br />
+            <FirstTextField
+              placeholder="Digite seu Nome"
+              tipo="text"
+              tamanho="1rem"
+              value={formData.nome}
+              onChange={(e) => setFormData({ ...formData, nome: e.target.value })}
+            /><br /><br />
 
             <FirstSubTitle texto="Sobrenome" tamanho="1rem" cor="#00695C" icon={PersonOutlineIcon} />
-            <FirstTextField placeholder="Digite seu Sobrenome" tipo="text" tamanho="1rem" /><br /><br />
+            <FirstTextField
+              placeholder="Digite seu Sobrenome"
+              tipo="text"
+              tamanho="1rem"
+              value={formData.sobrenome}
+              onChange={(e) => setFormData({ ...formData, sobrenome: e.target.value })}
+            /><br /><br />
 
             <FirstButton
               texto="Continuar"
@@ -87,10 +118,22 @@ const Cadastro = () => {
             <FirstSubTitle texto="Proteja sua conta com uma senha segura" tamanho="24px" cor="#00695C" /><br />
 
             <FirstSubTitle texto="Senha" tamanho="1rem" cor="#00695C" icon={LockIcon} />
-            <FirstTextField placeholder="Digite sua senha" tipo="password" tamanho="1rem" /><br /><br />
+            <FirstTextField
+              placeholder="Digite sua senha"
+              tipo="password"
+              tamanho="1rem"
+              value={formData.password}
+              onChange={(e) => setFormData({ ...formData, password: e.target.value })}
+            /><br /><br />
 
             <FirstSubTitle texto="Confirmar senha" tamanho="1rem" cor="#00695C" icon={LockIcon} />
-            <FirstTextField placeholder="Confirme sua senha" tipo="password" tamanho="1rem" /><br /><br />
+            <FirstTextField
+              placeholder="Confirme sua senha"
+              tipo="password"
+              tamanho="1rem"
+              value={formData.confirmPassword}
+              onChange={(e) => setFormData({ ...formData, confirmPassword: e.target.value })}
+            /><br /><br />
 
             <FirstButton
               texto="Continuar"
@@ -113,7 +156,7 @@ const Cadastro = () => {
                   key={esporte}
                   texto={esporte}
                   tamanho="1rem"
-                  cor={esportesSelecionados.includes(esporte) ? '#2E7D32' : '#81C784'}
+                  cor={formData.esportes.includes(esporte) ? '#2E7D32' : '#81C784'}
                   onClick={() => toggleEsporte(esporte)}
                 />
               ))}
@@ -170,11 +213,53 @@ const Cadastro = () => {
             <b><FirstTitle texto="Cadastro" tamanho="2.5rem" cor="#004D40" /><br /></b>
             <FirstSubTitle texto="Quais Sao Suas Redes Sociais?" tamanho="1.5rem" cor="#00695C" /><br />
             <FirstSubTitle texto="Instagram (Opcional)" tamanho="1rem" cor="#00695C" icon={InstagramIcon} />
-            <FirstTextField placeholder="Digite seu Nome" tipo="text" tamanho="1rem" /><br /><br />
+            <FirstTextField
+              placeholder="Instagram"
+              tipo="text"
+              tamanho="1rem"
+              value={formData.redes_sociais.instagram}
+              onChange={(e) =>
+                setFormData({
+                  ...formData,
+                  redes_sociais: {
+                    ...formData.redes_sociais,
+                    instagram: e.target.value,
+                  },
+                })
+              }
+            /><br /><br />
             <FirstSubTitle texto="X (Opcional)" tamanho="1rem" cor="#00695C" icon={XIcon} />
-            <FirstTextField placeholder="Digite seu Nome" tipo="text" tamanho="1rem" /><br /><br />
+            <FirstTextField
+              placeholder="X"
+              tipo="text"
+              tamanho="1rem"
+              value={formData.redes_sociais.x}
+              onChange={(e) =>
+                setFormData({
+                  ...formData,
+                  redes_sociais: {
+                    ...formData.redes_sociais,
+                    x: e.target.value,
+                  },
+                })
+              }
+            /><br /><br />
             <FirstSubTitle texto="TikTok (Opcional)" tamanho="1rem" cor="#00695C" icon={AudiotrackIcon} />
-            <FirstTextField placeholder="Digite seu Nome" tipo="text" tamanho="1rem" /><br /><br />
+            <FirstTextField
+              placeholder="TikTok"
+              tipo="text"
+              tamanho="1rem"
+              value={formData.redes_sociais.tiktok}
+              onChange={(e) =>
+                setFormData({
+                  ...formData,
+                  redes_sociais: {
+                    ...formData.redes_sociais,
+                    tiktok: e.target.value,
+                  },
+                })
+              }
+            /><br /><br />
 
 
             <br /><br />
@@ -203,17 +288,32 @@ const Cadastro = () => {
             <b><FirstTitle texto="Cadastro" tamanho="2.5rem" cor="#004D40" /></b><br />
             <FirstSubTitle texto="Como Gostaria de ser Chamado?" tamanho="24px" cor="#00695C" /><br />
             <FirstSubTitle texto="Nome" tamanho="1rem" cor="#00695C" icon={PersonOutlineIcon} />
-            <FirstTextField placeholder="Digite seu Nome" tipo="text" tamanho="1rem" /><br /><br />
+            <FirstTextField
+              placeholder="Como gostaria de ser chamado?"
+              tipo="text"
+              tamanho="1rem"
+              value={formData.username}
+              onChange={(e) => setFormData({ ...formData, username: e.target.value })}
+            /><br /><br />
 
 
             <br /><br />
             <FirstButton
-              texto="Continuar"
+              texto="Finalizar Cadastro"
               tamanho="1rem"
               cor="#388E3C"
               tipo="button"
-              onClick={() => alert("Seloko")}
-
+              onClick={async () => {
+                // Cria um novo objeto sem o confirmPassword antes de enviar
+                const dadosParaEnviar = { ...formData };
+                delete dadosParaEnviar.confirmPassword;
+                const resultado = await register(dadosParaEnviar); // Envia o objeto filtrado
+                if (resultado.success) {
+                  navigate('/home'); // ou a página inicial
+                } else {
+                  alert(`Erro: ${resultado.error}`);
+                }
+              }}
             />
             <br /><br />
             <u>
