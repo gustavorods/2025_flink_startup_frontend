@@ -95,7 +95,7 @@ export const AuthProvider = ({ children }) => {
         message = 'Erro de rede. Não foi possível conectar ao servidor. Verifique sua conexão.';
       } else {
         // Erro na configuração da requisição
-        message = 'Erro ao configurar a requisição. Tente novamente.';
+        message = 'Erro ao configurar a requisição registro. Tente novamente.';
       }
 
       return { success: false, error: message };
@@ -113,18 +113,23 @@ export const AuthProvider = ({ children }) => {
         email,
         password,
       });
+      // console.log('Resposta do login:', response.data); // Log da resposta do login
 
       const token = response.data.token;
+      // console.log('Token recebido:', token); // Log do token recebido
+
       sessionStorage.setItem('token', token);
+      // console.log('Token armazenado no sessionStorage:', sessionStorage.getItem('token')); // Log do token armazenado
+
       const decoded = jwtDecode(token);
       setUser(decoded);
       setIsAuthenticated(true);
-      return { success: true, token };
+      return { success: true, token }; // Retorna sucesso após o atraso
     } catch (err) {
       let message = 'Erro desconhecido';
       if (err.response) message = err.response.data.error || message;
       else if (err.request) message = 'Erro de rede. Tente novamente.';
-      else message = 'Erro ao configurar a requisição.';
+      else message = err.message || 'Erro ao configurar a requisição login.';;
 
       return { success: false, error: message };
     } finally {
