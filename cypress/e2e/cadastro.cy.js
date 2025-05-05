@@ -1,10 +1,19 @@
 describe('Fluxo de Cadastro', () => {
+
   it('deve concluir todas as etapas do cadastro com sucesso', () => {
     cy.visit('http://localhost:5173/Cadastro') // exemplo se for outra porta
+    cy.window().then((win) => {
+      win.console.log = (...args) => {
+        // Encaminha para a saída do Cypress
+        Cypress.log({ name: 'console.log', message: args });
+      };
+    });
 
-    // Etapa 1: Nome e sobrenome
+
+    // Etapa 1: Nome, sobrenome e email
     cy.get('input[placeholder="Digite seu Nome"]').type('João');
     cy.get('input[placeholder="Digite seu Sobrenome"]').type('Silva');
+    cy.get('input[placeholder="Digite seu Email"]').type('joaosilva@gmail.com');
     cy.contains('Continuar').click();
 
     // Etapa 2: Senha e confirmação
@@ -32,6 +41,6 @@ describe('Fluxo de Cadastro', () => {
     cy.contains('Finalizar Cadastro').click();
 
     // Espera redirecionamento ou resposta do sistema
-    cy.url().should('include', '/home'); // ou ajuste para onde redireciona após sucesso
+    cy.url().should('include', '/timeline'); // ou ajuste para onde redireciona após sucesso
   });
 });

@@ -55,30 +55,54 @@ export const AuthProvider = ({ children }) => {
   // Função de registro
   const register = async (novoUsuario) => {
     showLoading(); // Mostra o spinner global
-  
+
     try {
       const response = await axios.post('http://localhost:3000/api/criar-novo-user', novoUsuario);
-  
+
+      // Verifica se a resposta contém o token
+      if (!response || !response.data || !response.data.token) {
+        return { success: false, error: 'Token não retornado ou resposta inválida do servidor' };
+      }
+
       const token = response.data.token;
+
+      // Armazena o token no sessionStorage
       sessionStorage.setItem('token', token);
-  
+
+      // Decodifica o token JWT
       const decoded = jwtDecode(token);
       setUser(decoded);
       setIsAuthenticated(true);
-  
+
       return { success: true, token };
+
     } catch (err) {
       let message = 'Erro desconhecido';
-      if (err.response) message = err.response.data.error || message;
-      else if (err.request) message = 'Erro de rede. Tente novamente.';
-      else message = 'Erro ao configurar a requisição.';
-  
+
+      if (err.response) {
+        // Quando a resposta do servidor é recebida mas com erro (4xx ou 5xx)
+        if (err.response.status === 400) {
+          message = 'Dados inválidos fornecidos. Verifique os campos e tente novamente.';
+        } else if (err.response.status === 401) {
+          message = 'Credenciais inválidas. Por favor, tente novamente.';
+        } else if (err.response.status === 500) {
+          message = 'Erro no servidor. Tente novamente mais tarde.';
+        } else {
+          message = err.response.data.error || 'Erro desconhecido no servidor';
+        }
+      } else if (err.request) {
+        // Caso a requisição não tenha sido feita (erro de rede)
+        message = 'Erro de rede. Não foi possível conectar ao servidor. Verifique sua conexão.';
+      } else {
+        // Erro na configuração da requisição
+        message = 'Erro ao configurar a requisição. Tente novamente.';
+      }
+
       return { success: false, error: message };
     } finally {
       hideLoading(); // Oculta o spinner
     }
   };
-  
 
   // Função de login
   const login = async (email, password) => {
@@ -99,7 +123,7 @@ export const AuthProvider = ({ children }) => {
     } catch (err) {
       let message = 'Erro desconhecido';
       if (err.response) message = err.response.data.error || message;
-      else if (err.request) message = 'Erro de rede. Tente novamente.'; 
+      else if (err.request) message = 'Erro de rede. Tente novamente.';
       else message = 'Erro ao configurar a requisição.';
 
       return { success: false, error: message };
@@ -115,6 +139,26 @@ export const AuthProvider = ({ children }) => {
     setIsAuthenticated(false);
   };
 
+  // Função para verificar se o e-mail já existe
+  const verificarEmailExiste = async (email) => {
+    showLoading(); // Mostra o spinner durante a verificação
+    try {
+      // Use a URL completa se necessário, ou configure um baseURL no axios
+      const response = await axios.post('http://localhost:3000/auth/verify-email', { email });
+      // Assumindo que o backend retorna { existe: true } ou { existe: false }
+      return { exists: response.data.existe === true };
+    } catch (err) {
+      console.error('Erro ao verificar email no AuthProvider:', err.response?.data || err.message);
+      // Retorna um erro genérico ou a mensagem do backend, se disponível
+      return {
+        exists: false, // Assume que não existe em caso de erro, mas informa o erro
+        error: err.response?.data?.error || 'Erro ao tentar verificar o e-mail. Tente novamente.'
+      };
+    } finally {
+      hideLoading(); // Esconde o spinner
+    }
+  };
+
   return (
     <AuthContext.Provider
       value={{
@@ -123,6 +167,7 @@ export const AuthProvider = ({ children }) => {
         login,
         logout,
         register,
+        verificarEmailExiste,
       }}
     >
       {children}
