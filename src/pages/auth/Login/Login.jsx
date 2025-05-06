@@ -25,7 +25,7 @@ const Login = () => {
     if (result.success) {
       // Redireciona para o timeline após login bem-sucedido
       // TODO: Mudar para a rota correta após o login, ex: '/timeline' ou '/'
-      navigate('/timeline'); // Ajuste esta rota conforme necessário
+      navigate('/timeline');
     } else {
       // Define a mensagem de erro retornada pelo AuthProvider
       setError(result.error || 'Falha no login.');
