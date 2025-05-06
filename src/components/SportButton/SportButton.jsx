@@ -5,7 +5,7 @@ import styles from './SportButton.module.css'
 const SportButton = ({ label, selected, onClick }) => {
   return (
     <FirstButton
-      texto="Default"
+      texto={label}
       cor={selected ? '#388E3C' : '#fff'}
       tamanho="1rem"
       onClick={onClick}

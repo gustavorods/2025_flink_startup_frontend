@@ -19,9 +19,8 @@ function Profilepage() {
   ];
 
   return (
-    <div className="flex min-h-screen bg-gray-50">
-      {/* Lado esquerdo */}
-      <aside className="w-1/5 p-6 border-r border-gray-300 flex flex-col items-center">
+    <div className="flex flex-col md:flex-row min-h-screen bg-gray-50"> 
+      <aside className="w-full md:w-1/5 p-6 md:border-r border-gray-300 flex flex-col items-center mb-6 md:mb-0">
         {/* Avatar */}
         <div className="w-32 h-32 rounded-full bg-gray-300 mb-4" />
 
@@ -37,7 +36,7 @@ function Profilepage() {
         <h2 className="font-semibold text-lg mb-2">esportes</h2>
 
         {/* Botões de esportes */}
-        <div className="grid grid-cols-2 gap-2">
+        <div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-2 gap-2 w-full max-w-xs md:max-w-none"> {/* Ajusta colunas e largura máxima para telas diferentes */}
           <SportButton label="futebol" selected />
           <SportButton label="vôlei" selected />
           <SportButton label="vôlei" selected />
@@ -47,7 +46,7 @@ function Profilepage() {
 
       {/* Conteúdo principal */}
       {/* Passa os posts do usuário e desabilita o cabeçalho do perfil no feed */}
-      <main className="w-4/5 flex flex-col"> 
+      <main className="w-full md:w-4/5 flex flex-col"> {/* Largura total em telas < md */}
          <CentralFeed posts={userPosts} showUserProfile={false} />
       </main>
     </div>
