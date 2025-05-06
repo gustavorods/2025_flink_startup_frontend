@@ -12,11 +12,8 @@ import {
 import { CentralFeed } from '../../components/CentralFeed/CentralFeed';
 
 function Profilepage() {
-  // Exemplo de dados dos posts do perfil (va vir da APIs)
-  const userPosts = [
-    { id: 10, user: 'Nome', img: 'https://via.placeholder.com/150', description: 'Meu primeiro post no perfil!', sports: ['Futebol'] },
-    { id: 11, user: 'Nome', img: 'https://via.placeholder.com/150', description: 'Outro post aqui...', sports: ['Vôlei'] },
-  ];
+  // userPosts não é mais necessário aqui.
+  const profileUserId = "bernardovxexra"; // Exemplo de ID do usuário do perfil. Viria da URL ou props.
 
   return (
     <div className="flex flex-col md:flex-row min-h-screen bg-gray-50"> 
@@ -47,7 +44,7 @@ function Profilepage() {
       {/* Conteúdo principal */}
       {/* Passa os posts do usuário e desabilita o cabeçalho do perfil no feed */}
       <main className="w-full md:w-4/5 flex flex-col"> {/* Largura total em telas < md */}
-         <CentralFeed posts={userPosts} showUserProfile={false} />
+         <CentralFeed userId={profileUserId} showUserProfile={false} />
       </main>
     </div>
   );

@@ -1,22 +1,31 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
-function FirstSubTitleWithProfile({ texto, imagemUrl }) {
+function FirstSubTitleWithProfile({ texto, imagemUrl, username }) {
   const navigate = useNavigate();
 
   const handleProfileClick = () => {
-    navigate('/Profilepage'); // Navega para a página de perfil
+    if (username) {
+      navigate(`/Profilepage/${username}`);
+    } else {
+      navigate('/Profilepage'); // fallback
+    }
   };
 
   return (
     <div className="flex items-center gap-2">
       <img
-        src={imagemUrl || 'https://via.placeholder.com/150'} // Provide a default image
-        alt={`Perfil de ${texto}`} // Added alt text
-        className="w-10 h-10 md:w-12 md:h-12 rounded-full cursor-pointer object-cover" // Adjusted size and added object-cover
+        src={imagemUrl || "https://via.placeholder.com/150"}
+        alt={`Perfil de ${texto}`}
+        className="w-10 h-10 md:w-12 md:h-12 rounded-full cursor-pointer object-cover"
         onClick={handleProfileClick}
       />
-      <h3 className="text-base md:text-lg font-semibold cursor-pointer hover:underline" onClick={handleProfileClick}>{texto}</h3> {/* Adjusted size and added hover effect */}
+      <button
+        onClick={handleProfileClick}
+        className="text-base md:text-lg font-semibold hover:underline"
+      >
+        {texto}
+      </button>
     </div>
   );
 }
