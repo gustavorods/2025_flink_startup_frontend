@@ -498,7 +498,7 @@ const Cadastro = () => {
                     // Cria um novo objeto sem o confirmPassword antes de enviar
                     const dadosParaEnviar = { ...formData };
                     delete dadosParaEnviar.confirmPassword;
-                    console.log(dadosParaEnviar); // Verifica o objeto antes de enviar
+                    // console.log(dadosParaEnviar); // Verifica o objeto antes de enviar
                     const resultado = await register(dadosParaEnviar); // Envia o objeto filtrado
                     if (resultado.success) {
                       navigate('/timeline');

@@ -19,7 +19,7 @@ function FirstSubTitleWithProfile({ texto, imagemUrl }) {
   const navigate = useNavigate();
 
   const handleProfileClick = () => {
-    navigate('/profile'); // Redireciona para a página de perfil
+    navigate('/Profilepage'); // Redireciona para a página de perfil
   };
 
   return (
