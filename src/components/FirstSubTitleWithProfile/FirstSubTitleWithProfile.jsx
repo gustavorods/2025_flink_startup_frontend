@@ -1,26 +1,24 @@
 import React from 'react';
-import style from './FirstSubTitleWithProfile.module.css'; // Importando o arquivo CSS
+import { useNavigate } from 'react-router-dom';
 
-const FirstSubTitleWithProfile = ({ texto, imagemUrl }) => {
+function FirstSubTitleWithProfile({ texto, imagemUrl }) {
   const navigate = useNavigate();
 
   const handleProfileClick = () => {
-    navigate('/profile'); // Redireciona para a página de perfil
+    navigate('/Profilepage'); // Navega para a página de perfil
   };
 
   return (
-    <div className={style['first-subtitle-with-profile']}>
-      {/* Imagem de Perfil com click para redirecionar */}
+    <div className="flex items-center gap-2">
       <img
-        src={imagemUrl}
-        alt="Perfil"
-        className={style['profile-image']}
+        src={imagemUrl || 'https://via.placeholder.com/150'} // Provide a default image
+        alt={`Perfil de ${texto}`} // Added alt text
+        className="w-10 h-10 md:w-12 md:h-12 rounded-full cursor-pointer object-cover" // Adjusted size and added object-cover
         onClick={handleProfileClick}
       />
-      {/* Texto do subtítulo */}
-      <h3 className={style['profile-name']}>{texto}</h3>
+      <h3 className="text-base md:text-lg font-semibold cursor-pointer hover:underline" onClick={handleProfileClick}>{texto}</h3> {/* Adjusted size and added hover effect */}
     </div>
   );
-};
+}
 
 export { FirstSubTitleWithProfile };

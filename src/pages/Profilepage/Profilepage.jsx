@@ -8,12 +8,20 @@ import {
   FirstCard,
 } from '../../components';
 
+// Importa o CentralFeed reutilizável
+import { CentralFeed } from '../../components/CentralFeed/CentralFeed';
+
 function Profilepage() {
+  // Exemplo de dados dos posts do perfil (va vir da APIs)
+  const userPosts = [
+    { id: 10, user: 'Nome', img: 'https://via.placeholder.com/150', description: 'Meu primeiro post no perfil!', sports: ['Futebol'] },
+    { id: 11, user: 'Nome', img: 'https://via.placeholder.com/150', description: 'Outro post aqui...', sports: ['Vôlei'] },
+  ];
 
   return (
     <div className="flex min-h-screen bg-gray-50">
       {/* Lado esquerdo */}
-      <aside className="w-1/4 p-6 border-r border-gray-300 flex flex-col items-center">
+      <aside className="w-1/5 p-6 border-r border-gray-300 flex flex-col items-center">
         {/* Avatar */}
         <div className="w-32 h-32 rounded-full bg-gray-300 mb-4" />
 
@@ -38,34 +46,9 @@ function Profilepage() {
       </aside>
 
       {/* Conteúdo principal */}
-      <main className="w-3/4 p-6 flex flex-col">
-        
-        <FirstCard>
-          <div className="flex flex-col">
-            {/* Imagem central */}
-            <div className="h-64 bg-gray-200 flex justify-center items-center text-lg font-semibold rounded-t-lg">
-              imagem
-            </div>
-
-            
-            <div className="bg-black text-white text-sm p-3">
-              descrição descrição descrição descrição descrição
-              descrição descrição descrição descrição descrição
-            </div>
-
-            {/* Tags */}
-            <div className="flex gap-2 p-3">
-              <FirstButton texto="futebol" cor="#00695C" />
-              <FirstButton texto="vôlei" cor="#00695C" />
-            </div>
-          </div>
-        </FirstCard>
-
-        {/* Card extra embaixo */}
-        <FirstCard>
-          {/* Conteúdo opcional */}
-          Área inferior para mais conteúdo
-        </FirstCard>
+      {/* Passa os posts do usuário e desabilita o cabeçalho do perfil no feed */}
+      <main className="w-4/5 flex flex-col"> 
+         <CentralFeed posts={userPosts} showUserProfile={false} />
       </main>
     </div>
   );
