@@ -11,5 +11,5 @@ export * from './Logo'
 export * from './PrivateRoute';
 export * from './FirstSubTitleWithProfile';
 export * from './Spinner';
-export * from './CentralFeed';
 export * from './FirstSubTitleWithProfile';
+export * from './FeedComponent';

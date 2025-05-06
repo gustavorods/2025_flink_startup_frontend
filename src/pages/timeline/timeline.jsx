@@ -3,8 +3,8 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 // Ajuste os caminhos se LeftSidebar e RightSidebar foram movidos para src/components
 import { LeftSidebar } from './components';
-import { CentralFeed } from '../../components'; 
 import { RightSidebar } from './components'; 
+import { FeedComponent } from '../../components'; 
 
 function Timeline() {
   const navigate = useNavigate(); 
@@ -34,8 +34,9 @@ function Timeline() {
 
       {/* Conteúdo central */}
       <div className="w-full md:w-3/5 lg:w-2/3">
-        {/* Passa o ID do usuário logado para o CentralFeed */}
-        <CentralFeed userId={loggedInUserId} showUserProfile={true} />
+        {/* Passa o ID do usuário logado para o FeedComponent */}
+        <FeedComponent userId={loggedInUserId} showUserProfile={true} />
+
       </div>
 
       {/* Sugestões para seguir */}

@@ -8,8 +8,6 @@ import {
   FirstCard,
 } from '../../components';
 
-// Importa o CentralFeed reutilizável
-import { CentralFeed } from '../../components/CentralFeed/CentralFeed';
 
 function Profilepage() {
   // userPosts não é mais necessário aqui.
@@ -44,7 +42,7 @@ function Profilepage() {
       {/* Conteúdo principal */}
       {/* Passa os posts do usuário e desabilita o cabeçalho do perfil no feed */}
       <main className="w-full md:w-4/5 flex flex-col"> {/* Largura total em telas < md */}
-         <CentralFeed userId={profileUserId} showUserProfile={false} />
+         {/* <CentralFeed userId={profileUserId} showUserProfile={false} /> */}
       </main>
     </div>
   );
