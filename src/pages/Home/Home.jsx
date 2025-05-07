@@ -15,7 +15,9 @@ return (
       <NavbarSemLogin/>
 
       <div className={style.conteudo}>
-        <FirstTitle texto="Combine seu ritmo" tamanho="4rem" cor="#333" /><br></br>
+      <div className={style.titulo}>
+        <FirstTitle texto="Combine seu ritmo" tamanho="3.5rem" cor="#333" /><br></br>
+        </div>
           <motion.button
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.95 }}
