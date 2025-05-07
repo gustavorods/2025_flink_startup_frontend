@@ -3,6 +3,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom'; // Importar useNavigate
 import { AuthContext } from '../../../../context/AuthContext';
 import { FirstSubTitleWithProfile } from '../../../../components/FirstSubTitleWithProfile/FirstSubTitleWithProfile';
+import { uploadImageService, createPostService } from '../../../../services/apiService'; // Importar os serviços da API
 
 function LeftSidebar() {
   const { loggedInUserId } = useContext(AuthContext);
@@ -19,11 +20,129 @@ function LeftSidebar() {
   const [isUpdating, setIsUpdating] = useState(false);
   const [updateError, setUpdateError] = useState(null);
   const [updateSuccess, setUpdateSuccess] = useState(null);
+
+  // State for the new "Create Post" toggle
+  const [isCreatePostOpen, setIsCreatePostOpen] = useState(false);
+  const [postDescription, setPostDescription] = useState('');
+  const [postImageFile, setPostImageFile] = useState(null);
+  const [postImagePreview, setPostImagePreview] = useState('');
+  const [selectedPostSports, setSelectedPostSports] = useState(new Set());
+  const [postSubmitStatus, setPostSubmitStatus] = useState(''); 
+  const [isSubmittingPost, setIsSubmittingPost] = useState(false); // Para feedback de carregamento
+
+  // --- Handlers for Create Post section ---
+  const handleCreatePostToggle = () => {
+    setIsCreatePostOpen(!isCreatePostOpen);
+    setPostSubmitStatus(''); // Clear any previous status
+    if (!isCreatePostOpen) { // Reset form when opening
+      setPostDescription('');
+      setPostImageFile(null);
+      setPostImagePreview('');
+      setSelectedPostSports(new Set());
+      // Clear file input visually if it exists
+      const fileInput = document.getElementById('sidebarPostImageUpload');
+      if (fileInput) fileInput.value = null;
+    }
+  };
+
+  const handlePostDescriptionChange = (e) => {
+    setPostDescription(e.target.value);
+  };
+
+  const handlePostImageChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      setPostImageFile(file);
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setPostImagePreview(reader.result);
+      };
+      reader.readAsDataURL(file);
+    } else {
+      setPostImageFile(null);
+      setPostImagePreview('');
+    }
+  };
+
+  const handleRemovePostImage = () => {
+    setPostImageFile(null);
+    setPostImagePreview('');
+    const fileInput = document.getElementById('sidebarPostImageUpload');
+    if (fileInput) fileInput.value = null;
+  };
+
+  const handlePostSportToggle = (sport) => {
+    setSelectedPostSports(prev => {
+      const newSports = new Set(prev);
+      if (newSports.has(sport)) newSports.delete(sport);
+      else newSports.add(sport);
+      return newSports;
+    });
+  };
+
+
+  const handleCreatePostSubmit = async () => {
+    if (!postDescription.trim()) {
+      setPostSubmitStatus("Erro: A descrição é obrigatória.");
+      return;
+    }
+    if (selectedPostSports.size === 0) {
+      setPostSubmitStatus("Erro: Selecione pelo menos uma tag de esporte associada ao post.");
+      return;
+    }
+    if (!loggedInUserId) {
+      setPostSubmitStatus("Erro: Usuário não logado. Faça login para postar.");
+      return;
+    }
+
+    const token = sessionStorage.getItem('token'); // Ou obter de onde você armazena o token
+
+    if (!token) {
+        setPostSubmitStatus("Erro: Token de autenticação não encontrado. Faça login novamente.");
+        return;
+    }
+
+    setIsSubmittingPost(true);
+    setPostSubmitStatus("Criando postagem...");
+
+    try {
+      let imageUrl = null;
+      if (postImageFile) {
+        setPostSubmitStatus("Fazendo upload da imagem...");
+        imageUrl = await uploadImageService(postImageFile);
+        
+        // Opcional: você pode adicionar um console.log aqui para verificar o link durante o desenvolvimento
+        console.log("Link da imagem do Imgur obtido:", imageUrl); 
+      }
+
+      const postDataForApi = {
+        description: postDescription,
+        image: imageUrl, // URL da imagem do Imgur ou null
+        sports: Array.from(selectedPostSports),
+        // userId é inferido pelo backend a partir do token
+      };
+
+      setPostSubmitStatus("Enviando dados da postagem...");
+      await createPostService(postDataForApi, token);
+
+      setPostSubmitStatus("Postagem criada com sucesso!");
+      // Limpar formulário e fechar modal após sucesso
+      handleCreatePostToggle(); // Reutiliza a lógica de reset
+    } catch (error) {
+      console.error("Erro ao criar postagem:", error);
+      setPostSubmitStatus(`Erro ao criar postagem: ${error.message || 'Tente novamente.'}`);
+    } finally {
+      setIsSubmittingPost(false);
+    }
+  };
+
+
   const navigate = useNavigate(); // Hook para navegação
 
   const listaDeEsportesPadrao = [
     "Futebol", "Vôlei", "Natação", "Ciclismo", "Corrida", "Skate", "Basquete", "Tênis", "Handebol"
   ];
+
 
   const stripLeadingAt = (str) => {
     return str && typeof str === 'string' && str.startsWith('@') ? str.substring(1) : str;
@@ -168,14 +287,82 @@ function LeftSidebar() {
 
         {/* Botão de Configurações */}
         {loggedInUserId && (
-          <button
-            onClick={handleSettingsToggle}
-            className="w-full flex items-center justify-center px-4 py-2 mt-4 text-sm font-medium text-gray-700 bg-gray-200 rounded-md hover:bg-gray-300 focus:outline-none"
-          >
-            <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
-            Configuração
-          </button>
+          <div className="space-y-2 mt-4">
+            {/* Botão Criar Postagem */}
+            <button
+              onClick={handleCreatePostToggle}
+              className="w-full flex items-center justify-center px-4 py-2 text-sm font-medium text-white bg-[var(--green-highlight)] rounded-md hover:bg-[var(--green-primary)] focus:outline-none"
+            >
+              <svg className="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clipRule="evenodd"></path></svg>
+              Criar Postagem
+            </button>
+            {/* Botão de Configurações */}
+            <button
+              onClick={handleSettingsToggle}
+              className="w-full flex items-center justify-center px-4 py-2 text-sm font-medium text-gray-700 bg-gray-200 rounded-md hover:bg-gray-300 focus:outline-none"
+            >
+              <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 20l4-16m4 4l-4 4-4-4M6 16l-4-4 4-4"></path></svg> {/* Changed icon for variety */}
+              Configurações
+            </button>
+          </div>
         )}
+
+        {/* Painel de Criar Postagem Expansível */}
+        {isCreatePostOpen && loggedInUserId && profileData && (
+          <div className="mt-4 p-4 bg-white rounded-md shadow">
+            <h3 className="text-md font-semibold mb-3">Nova Postagem</h3>
+            <div className="space-y-3">
+              <div>
+                <label htmlFor="postDescription" className="block text-xs font-medium text-gray-700">Descrição <span className="text-red-500">*</span></label>
+                <textarea id="postDescription" rows="3" className="mt-1 block w-full px-2 py-1 border border-gray-300 rounded-md shadow-sm text-sm focus:ring-blue-500 focus:border-blue-500 resize-none" placeholder="O que está acontecendo?" value={postDescription} onChange={handlePostDescriptionChange} />
+              </div>
+              <div>
+                <label htmlFor="sidebarPostImageUpload" className="block text-xs font-medium text-gray-700">Imagem (Opcional)</label>
+                <input type="file" id="sidebarPostImageUpload" accept="image/*" onChange={handlePostImageChange} className="mt-1 block w-full text-xs text-gray-500 file:mr-2 file:py-1 file:px-2 file:rounded-full file:border-0 file:text-xs file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100" />
+                {postImagePreview && (
+                  <div className="mt-2 relative inline-block">
+                    <img src={postImagePreview} alt="Pré-visualização" className="max-h-32 w-auto rounded shadow" />
+                    <button type="button" onClick={handleRemovePostImage} className="absolute -top-1 -right-1 bg-red-500 text-white rounded-full p-0.5 text-xs leading-none hover:bg-red-600 flex items-center justify-center w-4 h-4" aria-label="Remover imagem">
+                      ✕
+                    </button>
+                  </div>
+                )}
+              </div>
+              <div>
+                <label className="block text-xs font-medium text-gray-700">Tags de Esporte <span className="text-red-500">*</span></label>
+                {profileData.esportes && profileData.esportes.length > 0 ? (
+                  <div className="mt-1 flex flex-wrap gap-2">
+                    {profileData.esportes.map(esporte => (
+                      <button
+                        key={esporte}
+                        type="button"
+                        onClick={() => handlePostSportToggle(esporte)}
+                        className={`px-3 py-1 text-xs rounded-full border transition-colors duration-150
+                          ${selectedPostSports.has(esporte)
+                            ? 'bg-blue-600 text-white border-blue-600'
+                            : 'bg-gray-100 text-gray-700 border-gray-300 hover:bg-gray-200'
+                          }`}
+                      >
+                        {esporte.charAt(0).toUpperCase() + esporte.slice(1)}
+                      </button>
+                    ))}
+                  </div>
+                ) : (
+                  <p className="text-xs text-gray-500 italic">Você não segue nenhum esporte. Adicione esportes nas configurações para poder usá-los em posts.</p>
+                )}
+              </div>
+            </div>
+            {postSubmitStatus && <p className={`mt-2 text-xs ${postSubmitStatus.startsWith("Erro:") ? 'text-red-600' : 'text-green-600'}`}>{postSubmitStatus}</p>}
+            <button
+              onClick={handleCreatePostSubmit}
+              disabled={isSubmittingPost || (!postDescription.trim() || selectedPostSports.size === 0) || (!profileData || !profileData.esportes || profileData.esportes.length === 0 && selectedPostSports.size === 0) }
+              className="w-full mt-4 px-4 py-2 bg-[var(--green-accent)] text-white text-sm font-medium rounded-md hover:bg-[var(--green-highlight)] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50"
+            >
+              {isSubmittingPost ? 'Publicando...' : 'Publicar'}
+            </button>
+          </div>
+        )}
+
 
         {/* Painel de Configurações Expansível */}
         {isSettingsOpen && loggedInUserId && (
