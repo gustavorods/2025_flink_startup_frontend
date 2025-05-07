@@ -38,7 +38,7 @@ function Timeline() {
       <div className="flex-grow md:w-3/5 lg:w-2/3"> {/* flex-grow para preencher o espaço disponível */}
       {/* Passa o ID do usuário logado para o FeedComponent */}
       {loggedInUserId ? (
-        <FeedComponent userId={loggedInUserId} showUserProfile={true} />
+        <FeedComponent userId={loggedInUserId} feedType="timeline" showUserProfileHeader={true} />
       ) : (
         <p className="p-4 text-center text-gray-600">Faça login para ver seu feed.</p>
       )}

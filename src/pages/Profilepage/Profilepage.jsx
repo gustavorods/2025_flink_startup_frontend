@@ -90,7 +90,7 @@ function Profilepage() {
         <h2 className="font-semibold text-lg mb-2">Esportes</h2>
 
         {/* Botões de esportes */}
-        <div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-2 gap-2 w-full max-w-xs md:max-w-none"> 
+        <div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-2 gap-2 w-full max-w-xs md:max-w-none">
           {profileData.esportes && profileData.esportes.length > 0 ? (
             profileData.esportes.map(esporte => <SportButton key={esporte} label={esporte} selected />)
           ) : (
@@ -101,7 +101,7 @@ function Profilepage() {
 
       {/* Conteúdo principal */}
       <main className="w-full md:w-4/5 flex flex-col"> {/* Largura total em telas < md */}
-         <FeedComponent userId={userId} showUserProfile={false} /> {/* Usa o userId da URL */}
+        <FeedComponent userId={userId} feedType="user" showUserProfileHeader={false} /> {/* Usa o userId da URL e especifica o tipo de feed */}
       </main>
     </div>
   );

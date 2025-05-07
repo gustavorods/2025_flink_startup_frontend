@@ -10,7 +10,7 @@ function RightSidebar() {
   const { loggedInUserId } = useContext(AuthContext); // Obter o ID do usuário logado do contexto
   const [followedUsers, setFollowedUsers] = useState(new Set()); // Guarda IDs dos usuários que foram seguidos com sucesso
   const [followingLoading, setFollowingLoading] = useState({}); // Controla o estado de loading por botão: { [userId]: true/false }
-  console.log("ID do usuário logado:", loggedInUserId); // Logar o ID do usuário logado
+  // console.log("ID do usuário logado:", loggedInUserId); // Logar o ID do usuário logado
 
   useEffect(() => {
     if (!loggedInUserId) {
@@ -24,7 +24,7 @@ function RightSidebar() {
       setError(null);
       try {
         const response = await axios.get(`http://localhost:3000/api/users/${loggedInUserId}/comparar-esportes`);
-        console.log("Resposta da API (Axios):", response);
+        // console.log("Resposta da API (Axios):", response);
 
         const data = response.data;
 
