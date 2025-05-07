@@ -15,10 +15,10 @@ const Router = () => {
     <Routes>
       <Route path="/Login" element={<Login />} /> {/* Certificando-se de que a URL seja /Login */}
       <Route path="/RecSenha" element={<RecSenha />} />
-      <Route path="/Cadastro" element={<Cadastro />} /> {/* Certificando-se de que a URL seja /Cadastro */}
+      <Route path="/Cadastro" element={<Cadastro />} /> 
       <Route path="/timeline" element={<Timeline />} />
       <Route path="/Home" element={<Home />} /> 
-      <Route path="/Profilepage" element={<Profilepage />} />
+      <Route path="/Profilepage/:id" element={<Profilepage />} />
       <Route path="/user-list-test" element={<UserListTest />} />
 
       <Route path="*" element={<Erro404 />} />
