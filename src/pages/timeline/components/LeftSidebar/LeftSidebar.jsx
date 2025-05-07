@@ -108,29 +108,38 @@ function LeftSidebar() {
     try {
       let imageUrl = null;
       if (postImageFile) {
-        setPostSubmitStatus("Fazendo upload da imagem...");
+      setPostSubmitStatus("Fazendo upload da imagem...");
+      try {
+        console.log("Fazendo upload da imagem:", postImageFile);
         imageUrl = await uploadImageService(postImageFile);
-        
-        // Opcional: você pode adicionar um console.log aqui para verificar o link durante o desenvolvimento
-        console.log("Link da imagem do Imgur obtido:", imageUrl); 
+        conaole.log();
+        console.log("Link da i  magem do Imgur obtido:", imageUrl);
+      } catch (uploadError) {
+        console.error("Erro ao fazer upload da imagem:", uploadError);
+        setPostSubmitStatus("Erro ao fazer upload da imagem. Tente novamente.");
+        setIsSubmittingPost(false);
+        return;
+      }
       }
 
       const postDataForApi = {
-        description: postDescription,
-        image: imageUrl, // URL da imagem do Imgur ou null
-        sports: Array.from(selectedPostSports),
-        // userId é inferido pelo backend a partir do token
+      description: postDescription,
+      image: imageUrl,
+      sports: Array.from(selectedPostSports),
       };
 
       setPostSubmitStatus("Enviando dados da postagem...");
+      try {
       await createPostService(postDataForApi, token);
-
       setPostSubmitStatus("Postagem criada com sucesso!");
-      // Limpar formulário e fechar modal após sucesso
       handleCreatePostToggle(); // Reutiliza a lógica de reset
+      } catch (postError) {
+      console.error("Erro ao enviar dados da postagem:", postError);
+      setPostSubmitStatus(`Erro ao enviar dados da postagem: ${postError} 'Tente novamente.'}`);
+      }
     } catch (error) {
-      console.error("Erro ao criar postagem:", error);
-      setPostSubmitStatus(`Erro ao criar postagem: ${error.message || 'Tente novamente.'}`);
+      console.error("Erro inesperado ao criar postagem:", error);
+      setPostSubmitStatus(`Erro inesperado: ${error.message || 'Tente novamente.'}`);
     } finally {
       setIsSubmittingPost(false);
     }
