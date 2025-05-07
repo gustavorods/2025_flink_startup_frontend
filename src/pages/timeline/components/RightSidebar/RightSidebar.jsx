@@ -8,6 +8,8 @@ function RightSidebar() {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
   const { loggedInUserId } = useContext(AuthContext); // Obter o ID do usuário logado do contexto
+  const [followedUsers, setFollowedUsers] = useState(new Set()); // Guarda IDs dos usuários que foram seguidos com sucesso
+  const [followingLoading, setFollowingLoading] = useState({}); // Controla o estado de loading por botão: { [userId]: true/false }
   console.log("ID do usuário logado:", loggedInUserId); // Logar o ID do usuário logado
 
   useEffect(() => {
@@ -47,9 +49,32 @@ function RightSidebar() {
     fetchSuggestions();
   }, [loggedInUserId]); // Refaz a busca se o loggedInUserId mudar
 
-  const handleFollow = (userIdToFollow) => {
-    // Futuramente aqui seguir o usuário.
-    console.log(`Usuário ${loggedInUserId} quer seguir ${userIdToFollow}`);
+  const handleFollow = async (userIdToFollow) => {
+    if (!loggedInUserId) {
+      console.error("Usuário não logado, não pode seguir.");
+      return;
+    }
+
+    setFollowingLoading(prev => ({ ...prev, [userIdToFollow]: true }));
+
+    try {
+      const response = await axios.post('http://localhost:3000/api/seguir', {
+        quemSegue: loggedInUserId,
+        quemVaiSerSeguido: userIdToFollow,
+      });
+
+      if (response.status === 200) {
+        console.log(response.data.message); // "Seguindo com sucesso."
+        setFollowedUsers(prev => new Set(prev).add(userIdToFollow));
+      } else {
+        // Tratar outros status de sucesso se houver
+        console.warn("Resposta inesperada ao seguir:", response);
+      }
+    } catch (err) {
+      console.error("Erro ao tentar seguir usuário:", err.response?.data?.error || err.message);
+    } finally {
+      setFollowingLoading(prev => ({ ...prev, [userIdToFollow]: false }));
+    }
   };
 
   return (
@@ -64,17 +89,28 @@ function RightSidebar() {
         {!isLoading && !error && suggestions.length > 0 && (
           <div className="flex flex-col gap-3">
             {suggestions.map((suggestion) => (
-              <FirstCard key={suggestion.id}>
-                <div className="flex justify-between items-center gap-2 flex-wrap">
-                  <div className="flex items-center gap-2 overflow-hidden">
-                    <img 
-                      src={suggestion.fotoPerfil || 'https://via.placeholder.com/32'} // Placeholder se não houver fotoPerfil
-                      alt={`Foto de ${suggestion.username || suggestion.nome}`} 
-                      className="w-8 h-8 rounded-full bg-gray-400 flex-shrink-0 object-cover" 
-                    />
-                    <span className="truncate text-sm">@{suggestion.username || suggestion.nome}</span>
+              <FirstCard key={suggestion.id}> {/* Usar suggestion.id que é o ID do usuário a ser seguido */}
+                <div className="flex justify-between items-center gap-2 flex-wrap"> {/* flex-wrap para responsividade */}
+                  <div className="flex items-center gap-2 min-w-0"> {/* min-w-0 para truncar corretamente */}
+                    <img
+                      src={suggestion.fotoPerfil || 'https://avatar.iran.liara.run/public/boy?username=' + (suggestion.username || suggestion.nome)} // Placeholder se não fotoPerfil
+                      alt={`Foto de ${suggestion.username || suggestion.nome}`}
+                      className="w-8 h-8 rounded-full bg-gray-400 flex-shrink-0 object-cover"
+                    /> {/* flex-shrink-0 para não encolher a imagem */}
+                    <span className="truncate text-sm font-medium">@{suggestion.username || suggestion.nome}</span>
                   </div>
-                  <FirstButton texto="Seguir" cor="#00695C" tamanho="0.75rem" padding="px-2 py-1" onClick={() => handleFollow(suggestion.id)} />
+                  {followedUsers.has(suggestion.id) ? (
+                    <FirstButton texto="Seguindo" cor="#4CAF50" /* Verde para indicar sucesso */ tamanho="0.75rem" padding="px-3 py-1" disabled />
+                  ) : (
+                    <FirstButton
+                      texto={followingLoading[suggestion.id] ? "Seguindo..." : "Seguir"}
+                      cor="#00695C"
+                      tamanho="0.75rem"
+                      padding="px-3 py-1" 
+                      onClick={() => handleFollow(suggestion.id)}
+                      disabled={followingLoading[suggestion.id]}
+                    />
+                  )}
                 </div>
               </FirstCard>
             ))}
