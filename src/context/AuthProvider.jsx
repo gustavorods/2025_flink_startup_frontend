@@ -8,6 +8,7 @@ export const AuthProvider = ({ children }) => {
   const { showLoading, hideLoading } = useLoading(); // Controle do spinner global
   const [user, setUser] = useState(null);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [loggedInUserId, setLoggedInUserId] = useState(null); 
 
   useEffect(() => {
     // Inicia o carregamento ao verificar o token
@@ -15,6 +16,7 @@ export const AuthProvider = ({ children }) => {
 
     const token = sessionStorage.getItem('token');
     if (!token) {
+      setLoggedInUserId(null);
       hideLoading();  // Finaliza o carregamento caso não exista token
       return;
     }
@@ -38,6 +40,7 @@ export const AuthProvider = ({ children }) => {
         .then((res) => {
           const userData = { id: res.data.userId };
           setUser(userData);
+          setLoggedInUserId(res.data.userId);
           setIsAuthenticated(true);
         })
         .catch((err) => {
@@ -73,6 +76,7 @@ export const AuthProvider = ({ children }) => {
       // Decodifica o token JWT
       const decoded = jwtDecode(token);
       setUser(decoded);
+      setLoggedInUserId(decoded.userId);
       setIsAuthenticated(true);
 
       return { success: true, token };
@@ -124,6 +128,7 @@ export const AuthProvider = ({ children }) => {
 
       const decoded = jwtDecode(token);
       setUser(decoded);
+      setLoggedInUserId(decoded.userId);
       setIsAuthenticated(true);
       return { success: true, token }; // Retorna sucesso após o atraso
     } catch (err) {
@@ -142,6 +147,7 @@ export const AuthProvider = ({ children }) => {
   const logout = () => {
     sessionStorage.removeItem('token');
     setUser(null);
+    setLoggedInUserId(null);
     setIsAuthenticated(false);
   };
 
@@ -169,6 +175,7 @@ export const AuthProvider = ({ children }) => {
     <AuthContext.Provider
       value={{
         user,
+        loggedInUserId,
         isAuthenticated,
         login,
         logout,

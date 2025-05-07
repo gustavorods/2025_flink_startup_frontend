@@ -3,6 +3,7 @@ import { createContext } from 'react';
 // Criação do contexto de autenticação
 export const AuthContext = createContext({
   user: null,
+  loggedInUserId: null,
   setUser: () => {},
   login: async () => ({ success: false, error: 'Login function not initialized' }),
   logout: () => {},

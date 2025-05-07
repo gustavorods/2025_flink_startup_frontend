@@ -21,7 +21,7 @@ export function useFeed(userId) {
       // A URL agora inclui o userId. O backend precisa suportar isso.
       const res = await axios.get(`http://localhost:3000/timeline/feed/${userId}`); // Ex: http://localhost:3000/api/feed/123
       const data = res.data; // Assumindo que res.data é um array de posts
-      console.log("Posts recebidos:", data); // Para depuração
+      // console.log("Posts recebidos:", data); // Para depuração
       
 
       // Apenas simula paginação aqui. Ideal seria backend com ?page=X ou cursor
