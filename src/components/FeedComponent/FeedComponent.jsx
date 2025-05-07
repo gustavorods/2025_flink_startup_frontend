@@ -37,7 +37,7 @@ function FeedComponent({ userId, showUserProfile = true }) {
       {posts.map((post, idx) => (
         <FirstCard key={post.id} ref={idx === posts.length - 1 ? lastPostRef : null}>
           <div className="flex flex-col gap-2 p-3"> {/* Adicionado padding ao conteúdo do card */}
-            {showUserProfile && <FirstSubTitleWithProfile texto={post.nome} imagemUrl={post.fotoPerfil} />} 
+            {showUserProfile && <FirstSubTitleWithProfile texto={post.nome} imagemUrl={post.fotoPerfil} />}
             <div className="bg-gray-300 h-64 rounded-md flex items-center justify-center text-gray-500">
               {post.image ? <img src={post.image} alt="Post" className="w-full h-full object-cover rounded-md" /> : "Imagem não disponível"}
             </div>
