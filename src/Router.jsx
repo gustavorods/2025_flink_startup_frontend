@@ -21,7 +21,7 @@ const Router = () => {
       <Route path="/Profilepage/:id" element={<Profilepage />} />
       <Route path="/user-list-test" element={<UserListTest />} />
 
-      <Route path="*" element={<Erro404 />} />
+      <Route path="*" element={<Home />} />
 
       {/* Rota protegida */}
       {/* verifica se a variável de ambiente está definida como 'true' */}
