@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom'; // Importar useNavigate
 import { AuthContext } from '../../../../context/AuthContext';
 import { FirstSubTitleWithProfile } from '../../../../components/FirstSubTitleWithProfile/FirstSubTitleWithProfile';
 
@@ -18,6 +19,7 @@ function LeftSidebar() {
   const [isUpdating, setIsUpdating] = useState(false);
   const [updateError, setUpdateError] = useState(null);
   const [updateSuccess, setUpdateSuccess] = useState(null);
+  const navigate = useNavigate(); // Hook para navegação
 
   const listaDeEsportesPadrao = [
     "Futebol", "Vôlei", "Natação", "Ciclismo", "Corrida", "Skate", "Basquete", "Tênis", "Handebol"
@@ -139,6 +141,13 @@ function LeftSidebar() {
     }
   };
 
+  const handleProfileClick = () => {
+    if (loggedInUserId) {
+      navigate(`/Profilepage/${loggedInUserId}`);
+    } else {
+      console.warn("Não é possível navegar para o perfil: ID do usuário logado não encontrado.");
+    }
+  };
   const imageUrl = profileData?.fotoPerfil || "https://avatar.iran.liara.run/public/boy";
   const userNameText = profileData?.nome || (loggedInUserId ? "Carregando..." : "Usuário");
 
@@ -148,10 +157,13 @@ function LeftSidebar() {
         {isLoading && !profileData && <p>Carregando perfil...</p>}
         {error && <p className="text-red-500 text-sm">Erro: {error}</p>}
         {(!isLoading || profileData) && ( // Mostra o perfil se não estiver carregando OU se já tiver dados
-          <FirstSubTitleWithProfile
-            imagemUrl={imageUrl}
-            texto={userNameText}
-          />
+
+          <div onClick={handleProfileClick} className="cursor-pointer">
+            <FirstSubTitleWithProfile
+              imagemUrl={imageUrl}
+              texto={userNameText}
+            />
+          </div>
         )}
 
         {/* Botão de Configurações */}
@@ -209,14 +221,14 @@ function LeftSidebar() {
                 <label htmlFor="redes_sociais.tiktok" className="block text-xs font-medium text-gray-700">TikTok</label>
                 <div className="mt-1 flex rounded-md shadow-sm">
                   <span className="inline-flex items-center px-3 rounded-l-md border border-r-0 border-gray-300 bg-gray-50 text-gray-500 text-sm">@</span>
-                  <input type="text" name="redes_sociais.tiktok" id="redes_sociais.tiktok" value={editableProfileData.redes_sociais.tiktok} onChange={handleInputChange} className="block w-full px-2 py-1 border border-gray-300 rounded-r-md text-sm focus:ring-indigo-500 focus:border-indigo-500" placeholder="usuario"/>
+                  <input type="text" name="redes_sociais.tiktok" id="redes_sociais.tiktok" value={editableProfileData.redes_sociais.tiktok} onChange={handleInputChange} className="block w-full px-2 py-1 border border-gray-300 rounded-r-md text-sm focus:ring-indigo-500 focus:border-indigo-500" placeholder="usuario" />
                 </div>
               </div>
               <div>
                 <label htmlFor="redes_sociais.x" className="block text-xs font-medium text-gray-700">X (Twitter)</label>
                 <div className="mt-1 flex rounded-md shadow-sm">
                   <span className="inline-flex items-center px-3 rounded-l-md border border-r-0 border-gray-300 bg-gray-50 text-gray-500 text-sm">@</span>
-                  <input type="text" name="redes_sociais.x" id="redes_sociais.x" value={editableProfileData.redes_sociais.x} onChange={handleInputChange} className="block w-full px-2 py-1 border border-gray-300 rounded-r-md text-sm focus:ring-indigo-500 focus:border-indigo-500" placeholder="usuario"/>
+                  <input type="text" name="redes_sociais.x" id="redes_sociais.x" value={editableProfileData.redes_sociais.x} onChange={handleInputChange} className="block w-full px-2 py-1 border border-gray-300 rounded-r-md text-sm focus:ring-indigo-500 focus:border-indigo-500" placeholder="usuario" />
                 </div>
               </div>
             </div>
