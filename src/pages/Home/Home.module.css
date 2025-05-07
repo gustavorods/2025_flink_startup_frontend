@@ -1,0 +1,21 @@
+.container {
+    width: 100vw;
+    height: 100vh;
+    background-image: url('../../assets/Fundo.png'); /* nome do arquivo COM extensão! */
+    background-size: cover; /* cobre toda a área */
+    background-position: left;
+    background-position-x: -100px;
+    background-repeat: no-repeat;
+  
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  @media (max-width: 768px) {
+    .container {
+      background-image: none;
+      background-color: #f2f2f2; /* ou qualquer fundo claro */
+    }
+  
+    
+  }

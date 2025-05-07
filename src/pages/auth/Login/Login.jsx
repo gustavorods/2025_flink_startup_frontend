@@ -3,6 +3,7 @@ import style from './Login.module.css'
 import { useNavigate } from 'react-router-dom';
 import PersonOutlineIcon from '@mui/icons-material/PersonOutline'
 import LockIcon from '@mui/icons-material/Lock';
+import { motion } from 'framer-motion';
 import { FirstCard, FirstTitle, FirstSubTitle, FirstTextField, FirstButton, FirstLink } from '../../../components'
 import { AuthContext } from '../../../context'; // Importe o AuthContext
 // Remova a importação do axios se não for mais usada aqui
@@ -38,6 +39,7 @@ const Login = () => {
 
       <div className={style.Login}>
         <form onSubmit={handleSubmit}>
+        <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ duration: 0.4 }}>
           <FirstCard>
             <b><FirstTitle texto="Login" tamanho="2.5rem" cor="#004D40" /> </b>{/* O título vai para dentro do FirstCard */}<br />
             <FirstSubTitle texto="Olá, que bom que você voltou!" tamanho="23px" cor="#00695C" /><br />
@@ -65,7 +67,13 @@ const Login = () => {
             />
             <br /><br />
             {error && <p style={{ color: 'red' }}>{error}</p>}
+            <motion.button
+  whileHover={{ scale: 1.1 }}
+  whileTap={{ scale: 0.95 }}
+  onHoverStart={() => console.log('hover started!')}
+>
             <FirstButton texto="Entrar" tamanho="1rem" cor="#388E3C" tipo="submit" />
+            </motion.button>
             <br></br><br></br>
             <u>
               <FirstLink
@@ -87,6 +95,7 @@ const Login = () => {
 
 
           </FirstCard>
+          </motion.div>
         </form>
       </div>
 

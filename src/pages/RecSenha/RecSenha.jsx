@@ -1,6 +1,8 @@
 import React, { useState } from 'react'
 import PersonOutlineIcon from '@mui/icons-material/PersonOutline'
 import LockIcon from '@mui/icons-material/Lock'
+import style from './RecSenha.module.css'
+import { motion } from 'framer-motion';
 import KeyIcon from '@mui/icons-material/VpnKey'
 import { useNavigate } from 'react-router-dom';
 
@@ -51,6 +53,7 @@ const RecSenha = () => {
   }
 
   return (
+    <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ duration: 0.4 }}>
     <FirstCard>
       <FirstTitle texto="Recuperar senha" tamanho="2.5rem" cor="#004D40" />
       <br />
@@ -75,7 +78,12 @@ const RecSenha = () => {
               requerido
             />
             <br /><br/>
-            <FirstButton texto="Enviar código" tamanho="1rem" cor="#388E3C" tipo="submit" />
+            <motion.button
+  whileHover={{ scale: 1.1 }}
+  whileTap={{ scale: 0.95 }}
+  onHoverStart={() => console.log('hover started!')}
+>
+            <FirstButton texto="Enviar código" tamanho="1rem" cor="#388E3C" tipo="submit" /></motion.button>
             <br /><br/>
             <FirstLink texto="Voltar Para Login" onClick={() => navigate('/Login')} cor="#00695C" tamanho="1rem" />
           </form>
@@ -102,7 +110,13 @@ const RecSenha = () => {
               requerido
             />
             <br /><br/>
+            <motion.button
+  whileHover={{ scale: 1.1 }}
+  whileTap={{ scale: 0.95 }}
+  onHoverStart={() => console.log('hover started!')}
+>
             <FirstButton texto="Continuar" tamanho="1rem" cor="#2E7D32" tipo="submit" />
+            </motion.button>
           </form>
         </>
       )}
@@ -141,12 +155,19 @@ const RecSenha = () => {
               requerido
             />
             <br /><br/>
+            <motion.button
+  whileHover={{ scale: 1.1 }}
+  whileTap={{ scale: 0.95 }}
+  onHoverStart={() => console.log('hover started!')}
+>
             <FirstButton texto="Definir nova senha" tamanho="1rem" cor="#2E7D32" tipo="submit" />
+            </motion.button>
           </form>
         </>
       )}
 
     </FirstCard>
+    </motion.div>
   )
 }
 

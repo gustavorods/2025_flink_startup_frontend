@@ -1,7 +1,10 @@
 import style from './NavbarSemLogin.module.css'
+import { useNavigate } from 'react-router-dom';
+  
 import { FirstButton, Logo } from '../index'
 
 const NavbarSemLogin = ({showButton = true }) => {
+    const navigate = useNavigate();
     return (
         <div className={style.container}>
             <div className={style.logo}>
@@ -13,6 +16,7 @@ const NavbarSemLogin = ({showButton = true }) => {
                     <FirstButton 
                     texto="Login"
                     cor="transparent" 
+                    onClick={() => navigate('/login')} // aqui é o pulo do gato
                     style={{
                         color: 'var(--green-text)',
                         border: '2px solid var(--green-primary)',

@@ -1,8 +1,15 @@
 .container {
+    position: absolute; /* ou "fixed" se quiser que fique no topo mesmo ao rolar */
+    top: 0;
+    left: 0;
+    width: 100%;
+  
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 0.5rem;
-    background: #98948B;
+    padding: 0.5rem 2rem;
+  
     background: linear-gradient(180deg, rgba(152, 148, 139, 0.69) 0%, rgba(232, 245, 233, 1) 74%);
-}
+    z-index: 1000; /* garante que fique acima de outros elementos */
+  }
+  

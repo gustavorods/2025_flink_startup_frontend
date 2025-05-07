@@ -8,6 +8,7 @@ import { Erro404 } from './pages'; // Importando o componente Erro404
 import { PrivateRoute } from './components';
 import { Timeline } from './pages';
 import { Profilepage } from './pages';
+import { Home } from './pages/Home';
 
 const Router = () => {
   return (
@@ -16,6 +17,7 @@ const Router = () => {
       <Route path="/RecSenha" element={<RecSenha />} />
       <Route path="/Cadastro" element={<Cadastro />} /> {/* Certificando-se de que a URL seja /Cadastro */}
       <Route path="/timeline" element={<Timeline />} />
+      <Route path="/Home" element={<Home />} /> 
       <Route path="/Profilepage" element={<Profilepage />} />
       <Route path="/user-list-test" element={<UserListTest />} />
 

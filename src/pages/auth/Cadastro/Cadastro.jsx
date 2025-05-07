@@ -9,6 +9,8 @@ import style from './Cadastro.module.css'
 import { useNavigate } from 'react-router-dom';
 import { useContext } from 'react'
 import { AuthContext } from '../../../context'
+import { motion } from 'framer-motion';
+
 import {
   etapa1Schema,
   etapa2Schema,
@@ -165,7 +167,7 @@ const Cadastro = () => {
   return (
 
     <div className={style.Cadastro}>
-
+  <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ duration: 0.4 }}>
       <FirstCard className={style.Cadastro}>
 
         {etapa === 1 && (
@@ -209,7 +211,11 @@ const Cadastro = () => {
             {/* 3. Renderiza o erro se existir */}
             {formErrors.email && <p style={{ color: 'red', fontSize: '0.8rem', marginTop: '4px' }}>{formErrors.email}</p>}
             <div style={{ marginBottom: '15px' }}></div> 
-
+<motion.button
+  whileHover={{ scale: 1.1 }}
+  whileTap={{ scale: 0.95 }}
+  onHoverStart={() => console.log('hover started!')}
+>
             <FirstButton
               texto="Continuar"
               tamanho="1rem"
@@ -217,6 +223,7 @@ const Cadastro = () => {
               tipo="button"
               onClick={irParaProximaEtapa}
             />
+            </motion.button>
             <br /><br />
             <u>
               <FirstLink
@@ -260,6 +267,11 @@ const Cadastro = () => {
             {formErrors.confirmPassword && <p style={{ color: 'red', fontSize: '0.8rem', marginTop: '4px' }}>{formErrors.confirmPassword}</p>}<br /><br />
 
             <div style={{ display: 'flex', justifyContent: 'space-between', width: '100%' }}>
+            <motion.button
+  whileHover={{ scale: 1.1 }}
+  whileTap={{ scale: 0.95 }}
+  onHoverStart={() => console.log('hover started!')}
+>
               <FirstButton
                 texto="Voltar"
                 tamanho="1rem"
@@ -267,13 +279,19 @@ const Cadastro = () => {
                 tipo="button"
                 onClick={irParaEtapaAnterior}
               />
+              </motion.button>
+              <motion.button
+  whileHover={{ scale: 1.1 }}
+  whileTap={{ scale: 0.95 }}
+  onHoverStart={() => console.log('hover started!')}
+>
               <FirstButton
                 texto="Continuar"
                 tamanho="1rem"
                 cor="#388E3C"
                 tipo="button"
                 onClick={irParaProximaEtapa}
-              />
+              /></motion.button>
             </div>
           </>
         )}
@@ -285,13 +303,18 @@ const Cadastro = () => {
 
             <div style={{ display: 'flex', flexWrap: 'wrap', gap: '18px', marginTop: '10px' }}>
               {esportes.map((esporte) => (
+                <motion.button
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.95 }}
+                onHoverStart={() => console.log('hover started!')}
+              >
                 <FirstButton
                   key={esporte}
                   texto={esporte}
                   tamanho="1rem"
                   cor={formData.esportes.includes(esporte) ? '#2E7D32' : '#81C784'}
                   onClick={() => toggleEsporte(esporte)}
-                />
+                /></motion.button>
               ))}
             </div>
             {/* Erro para a seleção de esportes */}
@@ -299,20 +322,30 @@ const Cadastro = () => {
 
             <br /><br />
             <div style={{ display: 'flex', justifyContent: 'space-between', width: '100%' }}>
+            <motion.button
+  whileHover={{ scale: 1.1 }}
+  whileTap={{ scale: 0.95 }}
+  onHoverStart={() => console.log('hover started!')}
+>
               <FirstButton
                 texto="Voltar"
                 tamanho="1rem"
                 cor="#FFA000"
                 tipo="button"
                 onClick={irParaEtapaAnterior}
-              />
+              /></motion.button>
+              <motion.button
+  whileHover={{ scale: 1.1 }}
+  whileTap={{ scale: 0.95 }}
+  onHoverStart={() => console.log('hover started!')}
+>
               <FirstButton
                 texto="Continuar"
                 tamanho="1rem"
                 cor="#388E3C"
                 tipo="button"
                 onClick={irParaProximaEtapa}
-              />
+              /></motion.button>
             </div>
             <br /><br />
             <u>
@@ -330,25 +363,39 @@ const Cadastro = () => {
           <>
             <b><FirstTitle texto="Cadastro" tamanho="2.5rem" cor="#004D40" /></b><br />
             <FirstSubTitle texto="Escolha sua melhor foto;)" tamanho="28px" cor="#00695C" /><br />
-
+            <motion.button
+  whileHover={{ scale: 1.1 }}
+  whileTap={{ scale: 0.95 }}
+  onHoverStart={() => console.log('hover started!')}
+>
             <FileButton texto="Escolher foto" tamanho="0.8rem"></FileButton>
-
+</motion.button>
             <br /><br />
             <div style={{ display: 'flex', justifyContent: 'space-between', width: '100%' }}>
+            <motion.button
+  whileHover={{ scale: 1.1 }}
+  whileTap={{ scale: 0.95 }}
+  onHoverStart={() => console.log('hover started!')}
+>
               <FirstButton
                 texto="Voltar"
                 tamanho="1rem"
                 cor="#FFA000"
                 tipo="button"
                 onClick={irParaEtapaAnterior}
-              />
+              /></motion.button>
+              <motion.button
+  whileHover={{ scale: 1.1 }}
+  whileTap={{ scale: 0.95 }}
+  onHoverStart={() => console.log('hover started!')}
+>
               <FirstButton
                 texto="Continuar"
                 tamanho="1rem"
                 cor="#388E3C"
                 tipo="button"
                 onClick={irParaProximaEtapa}
-              />
+              /></motion.button>
             </div>
             <br /><br />
             <u>
@@ -425,20 +472,30 @@ const Cadastro = () => {
             <div style={{ marginBottom: '20px' }}></div>
 
             <div style={{ display: 'flex', justifyContent: 'space-between', width: '100%' }}>
+            <motion.button
+  whileHover={{ scale: 1.1 }}
+  whileTap={{ scale: 0.95 }}
+  onHoverStart={() => console.log('hover started!')}
+>
               <FirstButton
                 texto="Voltar"
                 tamanho="1rem"
                 cor="#FFA000"
                 tipo="button"
                 onClick={irParaEtapaAnterior}
-              />
+              /></motion.button>
+              <motion.button
+  whileHover={{ scale: 1.1 }}
+  whileTap={{ scale: 0.95 }}
+  onHoverStart={() => console.log('hover started!')}
+>
               <FirstButton
                 texto="Continuar"
                 tamanho="1rem"
                 cor="#388E3C"
                 tipo="button"
                 onClick={irParaProximaEtapa}
-              />
+              /></motion.button>
             </div>
             <br /><br />
             <u>
@@ -478,13 +535,23 @@ const Cadastro = () => {
 
 
             <div style={{ display: 'flex', justifyContent: 'space-between', width: '100%' }}>
+            <motion.button
+  whileHover={{ scale: 1.1 }}
+  whileTap={{ scale: 0.95 }}
+  onHoverStart={() => console.log('hover started!')}
+>
               <FirstButton
                 texto="Voltar"
                 tamanho="1rem"
                 cor="#FFA000"
                 tipo="button"
                 onClick={irParaEtapaAnterior}
-              />
+              /></motion.button>
+              <motion.button
+  whileHover={{ scale: 1.1 }}
+  whileTap={{ scale: 0.95 }}
+  onHoverStart={() => console.log('hover started!')}
+>
               <FirstButton
                 texto="Finalizar Cadastro"
                 tamanho="1rem"
@@ -519,7 +586,7 @@ const Cadastro = () => {
                     }
                   }
                 }}
-              />
+              /></motion.button>
             </div>
             <div style={{ marginBottom: '30px' }}></div>
 
@@ -535,7 +602,7 @@ const Cadastro = () => {
         )}
 
       </FirstCard>
-
+      </motion.div>
     </div>
 
   )
