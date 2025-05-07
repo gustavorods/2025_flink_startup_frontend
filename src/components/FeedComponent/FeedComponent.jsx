@@ -1,5 +1,6 @@
-import { React } from 'react'; // Adicionar useRef e useCallback
+import React from 'react';
 import { FirstCard, FirstSubTitleWithProfile, SportButton } from "../../components";
+import { useNavigate } from 'react-router-dom'; // Importar useNavigate
 import usePosts from '../../hooks/usePosts'; // Importar o hook usePosts
 
 const formatFirestoreTimestamp = (timestamp) => {
@@ -19,10 +20,15 @@ const formatFirestoreTimestamp = (timestamp) => {
  * @param {boolean} showUserProfileHeader - Se deve exibir o cabeçalho do perfil (usado para feedType 'timeline').
  */
 function FeedComponent({ userId, feedType = 'user', showUserProfileHeader = true }) {
-  // console.log("FeedComponent renderizado com userId:", userId, "e feedType:", feedType); // Para depuração
-  // console.log("userId:", userId, "feedType:", feedType); // Para depuração
   const { posts, isLoading: loading, error, fetchPosts } = usePosts(userId, feedType); // Renomeado isLoading para loading para consistência
-  console.log("Posts recebidos:", posts); // Para depuração
+  const navigate = useNavigate(); // Hook para navegação
+  // console.log("Posts recebidos:", posts); // Para depuração
+
+  const handleNavigateToProfile = (profileUserId) => {
+    if (profileUserId) {
+      navigate(`/Profilepage/${profileUserId}`);
+    }
+  };
 
   if (!userId && feedType === 'user' && !loading) { // Verifica se é feed de usuário e não tem ID
     return <p className="text-center text-gray-500 p-4">ID do usuário do perfil não fornecido.</p>;
@@ -52,12 +58,17 @@ function FeedComponent({ userId, feedType = 'user', showUserProfileHeader = true
         <FirstCard key={post.id}>
           <div className="flex flex-col gap-2 p-3"> {/* Adicionado padding ao conteúdo do card */}
             {/* Lógica para exibir o cabeçalho do perfil do autor do post */}
+            {/* Envolve FirstSubTitleWithProfile em um div clicável */}
             {showUserProfileHeader && (
-              <FirstSubTitleWithProfile
-                texto={post.nome}
-                imagemUrl={post.fotoPerfil || 'https://avatar.iran.liara.run/public/boy'}
-                userId={post.userId}
-              />
+              <div
+                className="cursor-pointer"
+                onClick={() => handleNavigateToProfile(post.userId)} // post.userId é o ID do autor do post
+              >
+                <FirstSubTitleWithProfile
+                  texto={`${post.nome}`}
+                  imagemUrl={post.fotoPerfil || 'https://avatar.iran.liara.run/public/boy?username=' + (post.authorInfo.username || post.authorInfo.nome)}
+                />
+              </div>
             )}
             <div className="bg-gray-300 h-64 rounded-md flex items-center justify-center text-gray-500">
               {post.image ? <img src={post.image} alt="Post" className="w-full h-full object-cover rounded-md" /> : "Imagem não disponível"}
