@@ -53,7 +53,7 @@ const RecSenha = () => {
   }
 
   return (
-    <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ duration: 0.4 }}>
+    <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ duration: 0.4 }} className={style.RecSenha}>
     <FirstCard>
       <FirstTitle texto="Recuperar senha" tamanho="2.5rem" cor="#004D40" />
       <br />
