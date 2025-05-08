@@ -26,9 +26,9 @@ function usePosts(userId, feedType) {
 
         let url = '';
         if (feedType === 'user') {
-            url = `http://localhost:3000/api/users/${userId}/posts`;
+            url = `https://two025-flink-startup-backend.onrender.com/api/users/${userId}/posts`;
         } else if (feedType === 'timeline') {
-            url = `http://localhost:3000/timeline/feed/${userId}`;
+            url = `https://two025-flink-startup-backend.onrender.com/timeline/feed/${userId}`;
         } else {
             setError("Tipo de feed inválido.");
             setIsLoading(false);

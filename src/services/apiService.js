@@ -1,5 +1,5 @@
 // Define your API base URL. You might want to move this to a .env file for different environments.
-const API_BASE_URL = 'http://localhost:3000/api'; // Ajuste se seu backend rodar em outra porta/caminho
+const API_BASE_URL = 'https://two025-flink-startup-backend.onrender.com/api'; // Ajuste se seu backend rodar em outra porta/caminho
 import axios from 'axios'; // Importar axios
 const IMGUR_CLIENT_ID = '45e386d17a537d0'; // <-- COLOQUE SEU CLIENT ID DO IMGUR AQUI!
 

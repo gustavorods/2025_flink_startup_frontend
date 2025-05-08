@@ -14,7 +14,7 @@ const UserListTest = () => {
     setIsListLoading(true); // 3. Controlar estado local
     // Removido: showLoading();
     try {
-      const response = await axios.get('http://localhost:3000/api/listar-users');
+      const response = await axios.get('https://two025-flink-startup-backend.onrender.com/api/listar-users');
       setUsers(response.data);
     } catch (error) {
       console.error('Erro ao buscar usuários:', error);

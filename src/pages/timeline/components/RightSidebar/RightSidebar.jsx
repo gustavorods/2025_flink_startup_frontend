@@ -25,7 +25,7 @@ function RightSidebar() {
       setIsLoading(true);
       setError(null);
       try {
-        const response = await axios.get(`http://localhost:3000/api/users/${loggedInUserId}/comparar-esportes`);
+        const response = await axios.get(`https://two025-flink-startup-backend.onrender.com/api/users/${loggedInUserId}/comparar-esportes`);
         // console.log("Resposta da API (Axios):", response);
 
         const data = response.data;
@@ -60,7 +60,7 @@ function RightSidebar() {
     setFollowingLoading(prev => ({ ...prev, [userIdToFollow]: true }));
 
     try {
-      const response = await axios.post('http://localhost:3000/api/seguir', {
+      const response = await axios.post('https://two025-flink-startup-backend.onrender.com/api/seguir', {
         quemSegue: loggedInUserId,
         quemVaiSerSeguido: userIdToFollow,
       });

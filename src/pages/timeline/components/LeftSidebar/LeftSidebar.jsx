@@ -167,7 +167,7 @@ function LeftSidebar() {
       setIsLoading(true);
       setError(null);
       try {
-        const response = await axios.get(`http://localhost:3000/api/users/${loggedInUserId}/profile`);
+        const response = await axios.get(`https://two025-flink-startup-backend.onrender.com/api/users/${loggedInUserId}/profile`);
         const data = response.data;
         setProfileData(data);
         // Inicializa editableProfileData com os dados do perfil
@@ -260,7 +260,7 @@ function LeftSidebar() {
     };
 
     try {
-      const response = await axios.put(`http://localhost:3000/api/users/${loggedInUserId}/alterar`, payload);
+      const response = await axios.put(`https://two025-flink-startup-backend.onrender.com/api/users/${loggedInUserId}/alterar`, payload);
       setUpdateSuccess(response.data.mensagem || "Dados atualizados com sucesso!");
     } catch (err) {
       setUpdateError(err.response?.data?.erro || err.message || "Erro ao atualizar perfil.");

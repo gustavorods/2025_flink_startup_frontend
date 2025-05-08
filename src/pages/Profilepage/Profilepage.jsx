@@ -34,7 +34,7 @@ function Profilepage() {
       setIsLoading(true);
       setError(null);
       try {
-        const response = await axios.get(`http://localhost:3000/api/users/${userId}/profile`);
+        const response = await axios.get(`https://two025-flink-startup-backend.onrender.com/api/users/${userId}/profile`);
         console.log("Dados do perfil:", response.data); // Para depuração
         setProfileData(response.data);
       } catch (err) {

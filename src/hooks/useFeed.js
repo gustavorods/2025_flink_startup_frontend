@@ -1,7 +1,7 @@
 import { useEffect, useState, useCallback } from "react";
 import axios from "axios";
 
-// const API_URL = "http://localhost:3000/timeline/feed/"; // ajuste se estiver em produção ou se sua API tiver outro endpoint
+// const API_URL = "https://two025-flink-startup-backend.onrender.com/timeline/feed/"; // ajuste se estiver em produção ou se sua API tiver outro endpoint
 
 export function useFeed(userId) {
   const [posts, setPosts] = useState([]);
@@ -19,7 +19,7 @@ export function useFeed(userId) {
 
     try {
       // A URL agora inclui o userId. O backend precisa suportar isso.
-      const res = await axios.get(`http://localhost:3000/timeline/feed/${userId}`); // Ex: http://localhost:3000/api/feed/123
+      const res = await axios.get(`https://two025-flink-startup-backend.onrender.com/timeline/feed/${userId}`); // Ex: https://two025-flink-startup-backend.onrender.com/api/feed/123
       const data = res.data; // Assumindo que res.data é um array de posts
       // console.log("Posts recebidos:", data); // Para depuração
       
