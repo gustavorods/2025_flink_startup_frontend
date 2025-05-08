@@ -16,10 +16,38 @@ const Etapa6 = ({ formData, handleInputChange, formErrors, setFormErrors, irPara
       etapa6Schema.parse({ username: formData.username });
       setFormErrors({}); // Limpa erros se passou na validação final
       // Cria um novo objeto sem o confirmPassword antes de enviar
-      const dadosParaEnviar = { ...formData };
-      delete dadosParaEnviar.confirmPassword;
+      setFormErrors({});
 
-      const resultado = await register(dadosParaEnviar); // Envia o objeto filtrado
+      // Construir o objeto FormData
+      const data = new FormData();
+      data.append('nome', formData.nome);
+      data.append('sobrenome', formData.sobrenome);
+      data.append('email', formData.email);
+      data.append('password', formData.password); // O backend deve fazer o hash
+      data.append('username', formData.username);
+
+      // Para o array de esportes, anexe cada esporte individualmente
+      // O backend (com bibliotecas como multer) geralmente consegue reconstruir isso como um array.
+      if (formData.esportes && formData.esportes.length > 0) {
+        formData.esportes.forEach(esporte => {
+          data.append('esportes', esporte); // Swagger: items: type: string
+        });
+      } else {
+        // Se o backend espera um array vazio, você pode precisar enviar algo como:
+        // data.append('esportes', JSON.stringify([])); ou não enviar nada se for opcional.
+        // Pela documentação, parece opcional.
+      }
+
+      // Para o objeto redes_sociais, envie como uma string JSON
+      data.append('redes_sociais', JSON.stringify(formData.redes_sociais));
+
+      if (formData.foto) { // 'foto' é o nome do campo no estado formData
+        data.append('profileImage', formData.foto, formData.foto.name); // 'profileImage' é o nome esperado pela API
+      }
+
+      // Chame a função register do AuthContext com o objeto FormData
+      const resultado = await register(data);
+      
       if (resultado.success) {
         navigate('/timeline');
       } else {
@@ -39,7 +67,7 @@ const Etapa6 = ({ formData, handleInputChange, formErrors, setFormErrors, irPara
       }
     }
   };
-  
+
   return (
     <>
       <b><FirstTitle texto="Cadastro" tamanho="2.5rem" cor="#004D40" /></b>
