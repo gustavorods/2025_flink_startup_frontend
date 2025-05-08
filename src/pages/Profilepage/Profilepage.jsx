@@ -8,7 +8,10 @@ import {
   FirstButton,
   FirstCard,
   FeedComponent
-} from '../../components';
+} from '../../components'; // Fechamento da importação dos componentes
+import InstagramIcon from '@mui/icons-material/Instagram';
+import AudiotrackIcon from '@mui/icons-material/Audiotrack'; // Para TikTok
+import XIcon from '@mui/icons-material/X'; // Para X (Twitter)
 
 
 function Profilepage() {
@@ -64,6 +67,20 @@ function Profilepage() {
     return <div className="flex justify-center items-center min-h-screen">Perfil não encontrado.</div>;
   }
 
+  const socialLinks = [];
+  if (profileData.redes_sociais) {
+    if (profileData.redes_sociais.instagram && profileData.redes_sociais.instagram.startsWith('@')) {
+      socialLinks.push({ platform: 'Instagram', icon: <InstagramIcon />, url: `https://instagram.com/${profileData.redes_sociais.instagram.substring(1)}`, user: profileData.redes_sociais.instagram });
+    }
+    if (profileData.redes_sociais.tiktok && profileData.redes_sociais.tiktok.startsWith('@')) {
+      socialLinks.push({ platform: 'TikTok', icon: <AudiotrackIcon />, url: `https://tiktok.com/${profileData.redes_sociais.tiktok}`, user: profileData.redes_sociais.tiktok });
+    }
+    if (profileData.redes_sociais.x && profileData.redes_sociais.x.startsWith('@')) {
+      socialLinks.push({ platform: 'X', icon: <XIcon />, url: `https://x.com/${profileData.redes_sociais.x.substring(1)}`, user: profileData.redes_sociais.x });
+    }
+  }
+
+
   return (
     <div className="flex flex-col md:flex-row min-h-screen bg-gray-50">
       <aside className="w-full md:w-1/5 p-6 md:border-r border-gray-300 flex flex-col items-center mb-6 md:mb-0">
@@ -76,8 +93,9 @@ function Profilepage() {
           Home
         </button>
         {/* Avatar */}
+        {/* {console.log("profileData:", profileData)} */}
         <img
-          src={profileData.fotoPerfil || 'https://avatar.iran.liara.run/public/boy?username=' + (profileData.username || profileData.nome)}
+          src={profileData.profileImageUrl || 'https://avatar.iran.liara.run/public/boy?username=' + (profileData.username || profileData.nome)}
           alt={`Foto de ${profileData.nome || profileData.username}`}
           className="w-32 h-32 rounded-full bg-gray-300 mb-4 object-cover"
         />
@@ -97,6 +115,21 @@ function Profilepage() {
             <p className="col-span-full text-sm text-gray-500">Nenhum esporte informado.</p>
           )}
         </div>
+
+        {/* Redes Sociais */}
+        {socialLinks.length > 0 && (
+          <div className="mt-6 w-full">
+            <h2 className="font-semibold text-lg mb-2">Redes Sociais</h2>
+            <div className="space-y-2">
+              {socialLinks.map(social => (
+                <a key={social.platform} href={social.url} target="_blank" rel="noopener noreferrer" className="flex items-center text-sm text-[var(--green-primary)] hover:text-[var(--green-highlight)]">
+                  <span className="mr-2">{social.icon}</span>
+                  {social.user}
+                </a>
+              ))}
+            </div>
+          </div>
+        )}
       </aside>
 
       {/* Conteúdo principal */}

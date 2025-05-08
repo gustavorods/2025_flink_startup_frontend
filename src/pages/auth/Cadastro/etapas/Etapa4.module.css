@@ -1,0 +1,88 @@
+.uploadArea {
+  width: 180px; /* Tamanho da área de upload */
+  height: 180px;
+  border: 2px dashed #BDBDBD; /* Cinza claro para a borda tracejada */
+  border-radius: 12px; /* Bordas levemente arredondadas para o estado inicial */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  text-align: center;
+  position: relative;
+  overflow: hidden; /* Importante para o preview redondo */
+  transition: border-color 0.3s ease, background-color 0.3s ease, border-radius 0.3s ease;
+  background-color: #F5F5F5; /* Fundo levemente acinzentado */
+  color: #757575; /* Cor do texto do placeholder */
+  margin: 0 auto; /* Centralizar o componente na tela, se necessário */
+}
+
+.uploadArea:hover,
+.uploadArea:focus {
+  border-color: #00695C; /* Cor principal no hover/focus */
+  background-color: #E0F2F1; /* Fundo levemente esverdeado no hover */
+  outline: none; /* Remove a borda de foco padrão, já que estamos estilizando */
+}
+
+.uploadArea.dragging {
+  border-color: #004D40; /* Cor mais escura para dragging */
+  background-color: #C8E6C9; /* Fundo verde mais forte para dragging */
+}
+
+.uploadArea.hasPreview {
+  border-radius: 50%; /* Totalmente redondo quando tem preview */
+  border-style: solid; /* Borda sólida quando tem imagem */
+  border-color: #00796B; /* Borda verde quando tem imagem */
+  background-color: transparent; /* Sem fundo quando tem imagem */
+}
+
+.uploadPlaceholder {
+  padding: 10px;
+  font-size: 0.9rem;
+  pointer-events: none; /* Para garantir que o clique vá para o div pai */
+}
+
+.imagePreviewWrapper {
+  width: 100%;
+  height: 100%;
+  position: relative; /* Para o overlay */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.imagePreview {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Garante que a imagem cubra o círculo sem distorcer */
+  display: block; /* Remove espaço extra abaixo da imagem, se houver */
+}
+
+.imagePreviewOverlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0); /* Transparente inicialmente */
+  transition: background-color 0.3s ease;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  font-weight: bold;
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.7); /* Sombra para melhor legibilidade */
+}
+
+.imagePreviewOverlay span {
+  opacity: 0; /* Texto do overlay invisível inicialmente */
+  transition: opacity 0.3s ease;
+  padding: 5px; /* Espaçamento interno para o texto */
+}
+
+.uploadArea.hasPreview:hover .imagePreviewOverlay {
+  background-color: rgba(0, 0, 0, 0.5); /* Escurece no hover */
+}
+
+.uploadArea.hasPreview:hover .imagePreviewOverlay span {
+  opacity: 1; /* Texto do overlay visível no hover */
+}

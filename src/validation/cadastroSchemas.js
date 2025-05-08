@@ -8,6 +8,9 @@ export const etapa1Schema = z.object({
     .min(1, 'Email é obrigatório')
     .refine((email) => email.includes('@'), {
       message: 'O email deve conter "@"',
+    })
+    .refine((email) => email.includes('.'), {
+      message: 'O email deve conter um ponto "." após o "@"',
     }),
 });
 

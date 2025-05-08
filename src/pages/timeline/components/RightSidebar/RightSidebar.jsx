@@ -104,8 +104,9 @@ function RightSidebar() {
                     className="flex items-center gap-2 min-w-0 cursor-pointer"
                     onClick={() => handleNavigateToProfile(suggestion.id)}
                   >
+                    {/* {console.log("sugestão", suggestion)} */}
                     <img
-                      src={suggestion.fotoPerfil || 'https://avatar.iran.liara.run/public/boy?username=' + (suggestion.username || suggestion.nome)}
+                      src={suggestion.profileImage || 'https://avatar.iran.liara.run/public/boy?username=' + (suggestion.username || suggestion.nome)}
                       alt={`Foto de ${suggestion.username || suggestion.nome}`}
                       className="w-8 h-8 rounded-full bg-gray-400 flex-shrink-0 object-cover"
                     />
