@@ -1,16 +1,14 @@
 import React from 'react';
 import style from './FirstButton.module.css'
 
-const FirstButton = ({ texto="Default" , tamanho, cor, tipo = 'button', ...props }) => {
+const FirstButton = ({ texto = "Default", tamanho, cor, tipo = 'button', ...props }) => {
   return (
     <button
+      type={tipo}
       className={style.FirstButton}
-      type={tipo}  // Aqui o tipo é configurado via props
       style={{
-        fontSize: tamanho,
-        backgroundColor: cor,
-        color: 'white',
-        borderRadius: '30px',  // Bordas arredondadas
+        ...(tamanho && { fontSize: tamanho }),
+        ...(cor && { backgroundColor: cor }),
       }}
       {...props}
     >
@@ -18,5 +16,6 @@ const FirstButton = ({ texto="Default" , tamanho, cor, tipo = 'button', ...props
     </button>
   );
 };
+
 
 export { FirstButton };

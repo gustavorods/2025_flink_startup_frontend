@@ -153,11 +153,14 @@ export const AuthProvider = ({ children }) => {
 
   // Função para verificar se o e-mail já existe
   const verificarEmailExiste = async (email) => {
-    showLoading(); // Mostra o spinner durante a verificação
+    // showLoading(); // Mostra o spinner durante a verificação
     try {
+      // console.log('Verificando se o e-mail existe:', email); // Log do e-mail a ser verificado
+
       // Use a URL completa se necessário, ou configure um baseURL no axios
       const response = await axios.post('http://localhost:3000/auth/verify-email', { email });
-      // Assumindo que o backend retorna { existe: true } ou { existe: false }
+
+      // console.log('Resposta da verificação de e-mail:', response.data); // Log da resposta da verificação
       return { exists: response.data.existe === true };
     } catch (err) {
       console.error('Erro ao verificar email no AuthProvider:', err.response?.data || err.message);
