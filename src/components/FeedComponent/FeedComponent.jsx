@@ -2,6 +2,7 @@ import React from 'react';
 import { FirstCard, FirstSubTitleWithProfile, SportButton } from "../../components";
 import { useNavigate } from 'react-router-dom'; // Importar useNavigate
 import usePosts from '../../hooks/usePosts'; // Importar o hook usePosts
+import style from './FeedComponent.module.css'
 
 const formatFirestoreTimestamp = (timestamp) => {
   if (!timestamp || typeof timestamp._seconds !== 'number') {
@@ -75,7 +76,7 @@ function FeedComponent({ userId, feedType = 'user', showUserProfileHeader = true
             </div>
             <p className="text-sm text-gray-700">{post.texto || post.description}</p> {/* 'texto' de user posts, 'description' de feed */}
             <div className="flex gap-2 flex-wrap">
-              {(post.sports || post.esportes) && (post.sports || post.esportes).map(sport => <SportButton key={sport} label={sport} selected={true} />)}
+              {(post.sports || post.esportes) && (post.sports || post.esportes).map(sport => <SportButton key={sport} label={sport} selected={true} className={style.sportButtonMaior}  />)}
             </div>            <p className="text-xs text-gray-500 mt-2">{formatFirestoreTimestamp(post.created_at || post.createdAt)}</p>
           </div>
         </FirstCard>

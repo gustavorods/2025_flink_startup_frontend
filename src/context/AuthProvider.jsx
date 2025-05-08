@@ -34,7 +34,7 @@ export const AuthProvider = ({ children }) => {
 
       // Se o token for válido, verifica com o backend
       axios
-        .get('http://localhost:3000/auth/verify-token', {
+        .get('https://two025-flink-startup-backend.onrender.com/auth/verify-token', {
           headers: { Authorization: `Bearer ${token}` },
         })
         .then((res) => {
@@ -60,7 +60,7 @@ export const AuthProvider = ({ children }) => {
     showLoading(); // Mostra o spinner global
     // console.log('Dados do novo usuário:', novoUsuario); // Log dos dados do novo usuário
     try {
-      const response = await axios.post('http://localhost:3000/api/criar-novo-user', novoUsuario);
+      const response = await axios.post('https://two025-flink-startup-backend.onrender.com/api/criar-novo-user', novoUsuario);
       console.log('Resposta do registro:', response.data); // Log da resposta do registro
 
       // Verifica se a resposta contém o token
@@ -114,7 +114,7 @@ export const AuthProvider = ({ children }) => {
     showLoading(); // Inicia o carregamento enquanto autentica
 
     try {
-      const response = await axios.post('http://localhost:3000/api/login', {
+      const response = await axios.post('https://two025-flink-startup-backend.onrender.com/api/login', {
         email,
         password,
       });
@@ -158,9 +158,8 @@ export const AuthProvider = ({ children }) => {
       // console.log('Verificando se o e-mail existe:', email); // Log do e-mail a ser verificado
 
       // Use a URL completa se necessário, ou configure um baseURL no axios
-      const response = await axios.post('http://localhost:3000/auth/verify-email', { email });
-
-      // console.log('Resposta da verificação de e-mail:', response.data); // Log da resposta da verificação
+      const response = await axios.post('https://two025-flink-startup-backend.onrender.com/auth/verify-email', { email });
+      // Assumindo que o backend retorna { existe: true } ou { existe: false }
       return { exists: response.data.existe === true };
     } catch (err) {
       console.error('Erro ao verificar email no AuthProvider:', err.response?.data || err.message);
