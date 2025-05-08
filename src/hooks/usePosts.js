@@ -37,9 +37,10 @@ function usePosts(userId, feedType) {
         }
 
         try {
-            console.log("URL da requisição:", url); // Para depuração
+            // console.log("URL da requisição:", url); // Para depuração
             const response = await axios.get(url);
-            console.log(`Posts:`, response.data); // Para depuração
+            // console.log(`Posts:`, response.data); // Para depuração
+
             setPosts(response.data || []); // Garante que seja um array
         } catch (err) {
             console.error(`Erro ao buscar posts (${feedType}):`, err);

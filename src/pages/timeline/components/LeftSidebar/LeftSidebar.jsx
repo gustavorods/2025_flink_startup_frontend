@@ -20,6 +20,8 @@ function LeftSidebar() {
   const [isUpdating, setIsUpdating] = useState(false);
   const [updateError, setUpdateError] = useState(null);
   const [updateSuccess, setUpdateSuccess] = useState(null);
+  const [newProfileImageFile, setNewProfileImageFile] = useState(null);
+  const [newProfileImagePreview, setNewProfileImagePreview] = useState('');
 
   // State for the new "Create Post" toggle
   const [isCreatePostOpen, setIsCreatePostOpen] = useState(false);
@@ -157,16 +159,18 @@ function LeftSidebar() {
     return str && typeof str === 'string' && str.startsWith('@') ? str.substring(1) : str;
   };
 
-  useEffect(() => {
-    if (!loggedInUserId) {
-      setIsLoading(false);
-      return;
-    }
+  // Mover fetchUserProfile para o escopo do componente
+  const fetchUserProfile = async () => {
+    if (!loggedInUserId) return; // Adicionar verificação aqui também
 
-    const fetchUserProfile = async () => {
       setIsLoading(true);
       setError(null);
       try {
+      // Limpar preview de imagem de perfil antiga se houver
+      if (newProfileImagePreview) {
+        URL.revokeObjectURL(newProfileImagePreview);
+        setNewProfileImagePreview('');
+      }
         const response = await axios.get(`http://localhost:3000/api/users/${loggedInUserId}/profile`);
         const data = response.data;
         setProfileData(data);
@@ -190,6 +194,14 @@ function LeftSidebar() {
       }
     };
 
+  useEffect(() => {
+    if (!loggedInUserId) {
+      setIsLoading(false);
+      // Limpar dados do perfil se o usuário deslogar ou não houver ID
+      setProfileData(null); 
+      return;
+    }
+
     fetchUserProfile();
   }, [loggedInUserId]);
 
@@ -197,6 +209,8 @@ function LeftSidebar() {
     setIsSettingsOpen(!isSettingsOpen);
     setUpdateError(null); // Limpa erros anteriores ao abrir/fechar
     setUpdateSuccess(null); // Limpa mensagens de sucesso anteriores
+    setNewProfileImageFile(null); // Limpa seleção de nova imagem
+    setNewProfileImagePreview(''); // Limpa preview da nova imagem
     // Re-inicializa os dados editáveis se o perfil foi carregado e o menu está sendo aberto
     if (!isSettingsOpen && profileData) {
       setEditableProfileData({
@@ -237,6 +251,27 @@ function LeftSidebar() {
     });
   };
 
+  const handleNewProfileImageChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      setNewProfileImageFile(file);
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setNewProfileImagePreview(reader.result);
+      };
+      reader.readAsDataURL(file);
+    } else {
+      setNewProfileImageFile(null);
+      setNewProfileImagePreview('');
+    }
+  };
+
+  const handleRemoveNewProfileImage = () => {
+    setNewProfileImageFile(null);
+    setNewProfileImagePreview('');
+    const fileInput = document.getElementById('newProfileImageUpload');
+    if (fileInput) fileInput.value = null;
+  };
 
   const handleUpdateProfile = async () => {
     if (!loggedInUserId) return;
@@ -244,24 +279,49 @@ function LeftSidebar() {
     setUpdateError(null);
     setUpdateSuccess(null);
 
-    // Adiciona '@' de volta às redes sociais para o payload da API
-    const redesSociaisParaApi = {};
-    for (const key in editableProfileData.redes_sociais) {
-      const value = editableProfileData.redes_sociais[key];
-      // Adiciona @ se o valor não for vazio, caso contrário, envia string vazia ou o valor como está.
-      redesSociaisParaApi[key] = value ? `@${value}` : '';
+    const formDataPayload = new FormData();
+
+    formDataPayload.append('nome', editableProfileData.nome);
+    formDataPayload.append('sobrenome', editableProfileData.sobrenome);
+
+    const esportesArray = Array.from(editableProfileData.esportes);
+    if (esportesArray.length > 0) {
+      esportesArray.forEach(esporte => {
+        formDataPayload.append('esportes', esporte);
+      });
+    } else {
+      // Se o backend espera um array vazio explicitamente, você pode precisar fazer:
+      // formDataPayload.append('esportes', ''); ou JSON.stringify([])
+      // Mas geralmente não enviar nada para o array é suficiente se for opcional.
     }
 
-    const payload = {
-      nome: editableProfileData.nome,
-      sobrenome: editableProfileData.sobrenome,
-      esportes: Array.from(editableProfileData.esportes), // Converte Set para array
-      redes_sociais: redesSociaisParaApi,
-    };
+    // Prepara redes_sociais, adicionando '@' de volta
+    const redesSociaisComArroba = {};
+    for (const key in editableProfileData.redes_sociais) {
+      const value = editableProfileData.redes_sociais[key];
+      redesSociaisComArroba[key] = value ? `@${value}` : '';
+    }
+    formDataPayload.append('redes_sociais', JSON.stringify(redesSociaisComArroba));
+
+    if (newProfileImageFile) {
+      formDataPayload.append('profileImage', newProfileImageFile);
+    }
 
     try {
-      const response = await axios.put(`http://localhost:3000/api/users/${loggedInUserId}/alterar`, payload);
+      const response = await axios.put(`http://localhost:3000/api/users/${loggedInUserId}/alterar`, formDataPayload, {
+        headers: {
+          // Axios define 'Content-Type': 'multipart/form-data' automaticamente com FormData
+          // Mas se você tiver um token de autenticação, adicione-o aqui:
+          // 'Authorization': `Bearer ${sessionStorage.getItem('token')}`,
+        }
+      });
       setUpdateSuccess(response.data.mensagem || "Dados atualizados com sucesso!");
+      // Se a imagem foi alterada, recarregar o perfil para obter a nova URL da imagem
+      if (newProfileImageFile) {
+        await fetchUserProfile(); // Reutiliza a função de fetch do perfil
+      }
+      setNewProfileImageFile(null); // Limpa após o sucesso
+      // setNewProfileImagePreview(''); // O fetchUserProfile já vai limpar o preview se necessário
     } catch (err) {
       setUpdateError(err.response?.data?.erro || err.message || "Erro ao atualizar perfil.");
     } finally {
@@ -385,6 +445,21 @@ function LeftSidebar() {
               <div>
                 <label htmlFor="sobrenome" className="block text-xs font-medium text-gray-700">Sobrenome</label>
                 <input type="text" name="sobrenome" id="sobrenome" value={editableProfileData.sobrenome} onChange={handleInputChange} className="mt-1 block w-full px-2 py-1 border border-gray-300 rounded-md shadow-sm text-sm focus:ring-indigo-500 focus:border-indigo-500" />
+              </div>
+              <div>
+                <label htmlFor="newProfileImageUpload" className="block text-xs font-medium text-gray-700">Foto de Perfil</label>
+                <input type="file" id="newProfileImageUpload" accept="image/*" onChange={handleNewProfileImageChange} className="mt-1 block w-full text-xs text-gray-500 file:mr-2 file:py-1 file:px-2 file:rounded-full file:border-0 file:text-xs file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100" />
+                {(newProfileImagePreview || (profileData && profileData.fotoPerfil)) && (
+                  <div className="mt-2 relative inline-block">
+                    <img 
+                      src={newProfileImagePreview || profileData.fotoPerfil} 
+                      alt="Preview da foto de perfil" 
+                      className="h-20 w-20 rounded-full object-cover shadow" />
+                    {newProfileImagePreview && (
+                       <button type="button" onClick={handleRemoveNewProfileImage} className="absolute -top-1 -right-1 bg-red-500 text-white rounded-full p-0.5 text-xs leading-none hover:bg-red-600 flex items-center justify-center w-4 h-4" aria-label="Remover nova imagem">✕</button>
+                    )}
+                  </div>
+                )}
               </div>
               <div>
                 <label htmlFor="esportes" className="block text-xs font-medium text-gray-700">Esportes</label>
