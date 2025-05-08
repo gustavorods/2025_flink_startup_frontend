@@ -2,7 +2,7 @@ import style from './Logo.module.css';
 
 const Logo = () => {
     return(
-        <img className={style.logo} src="/src/assets/icons/IconeSite.png" alt="Flink Logo" />
+        <img className={style.logo} src="https://i.imgur.com/IUc40bc.png" alt="Flink Logo" />
     );
 }
 
