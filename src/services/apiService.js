@@ -49,11 +49,12 @@ export const uploadImageService = async (file) => {
  * @param {string} token The JWT token for authorization.
  * @returns {Promise<object>} A promise that resolves with the created post data.
  */
-export const createPostService = async (postData, token) => {
+export const createPostService = async (postDataPayload, token) => { // Renomeado para clareza que é FormData
   try {
-    const response = await axios.post(`${API_BASE_URL}/posts`, postData, {
+    const response = await axios.post(`${API_BASE_URL}/posts`, postDataPayload, {
       headers: {
-        'Content-Type': 'application/json',
+        // Quando enviando FormData, NÃO defina Content-Type manualmente.
+        // Axios o fará automaticamente para 'multipart/form-data' com o boundary correto.
         'Authorization': `Bearer ${token}`,
       },
     });
