@@ -58,7 +58,7 @@ export const AuthProvider = ({ children }) => {
   // Função de registro
   const register = async (novoUsuario) => {
     showLoading(); // Mostra o spinner global
-    // console.log('Dados do novo usuário:', novoUsuario); // Log dos dados do novo usuário
+    console.log('Dados do novo usuário:', novoUsuario); // Log dos dados do novo usuário
     try {
       const response = await axios.post('http://localhost:3000/api/criar-novo-user', novoUsuario);
       console.log('Resposta do registro:', response.data); // Log da resposta do registro
