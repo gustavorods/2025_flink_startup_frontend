@@ -50,6 +50,7 @@ const Cadastro = () => {
       tiktok: '',
     },
     username: '',
+    foto: null, // Campo para a foto de perfil
   });
   const [formErrors, setFormErrors] = useState({}); // 1. Estado para guardar erros
 
@@ -65,6 +66,14 @@ const Cadastro = () => {
     if (formErrors[fieldName]) {
       // Limpa o erro do campo específico
       setFormErrors(prevErrors => ({ ...prevErrors, [fieldName]: undefined }));
+    }
+  };
+
+  const handleFotoSelect = (file) => {
+    setFormData(prev => ({ ...prev, foto: file }));
+    // Limpar erro de foto, se houver
+    if (formErrors.foto) {
+      setFormErrors(prevErrors => ({ ...prevErrors, foto: undefined }));
     }
   };
 
@@ -191,9 +200,12 @@ const Cadastro = () => {
           {etapa === 4 && (
             <Etapa4
               formErrors={formErrors}
+              // setFormErrors={setFormErrors} // Passar se Etapa4 precisar setar erros diretamente no futuro
               irParaProximaEtapa={irParaProximaEtapa}
               irParaEtapaAnterior={irParaEtapaAnterior}
               navigate={navigate}
+              onFotoSelect={handleFotoSelect}
+              initialFoto={formData.foto}
             />
           )}
           {etapa === 5 && (
