@@ -176,7 +176,7 @@ function LeftSidebar() {
         URL.revokeObjectURL(newProfileImagePreview);
         setNewProfileImagePreview('');
       }
-      const response = await axios.get(`http://localhost:3000/api/users/${loggedInUserId}/profile`);
+      const response = await axios.get(`https://two025-flink-startup-backend.onrender.com/api/users/${loggedInUserId}/profile`);
       const data = response.data;
       setProfileData(data);
       // Inicializa editableProfileData com os dados do perfil
@@ -313,7 +313,7 @@ function LeftSidebar() {
     }
 
     try {
-      const response = await axios.put(`http://localhost:3000/api/users/${loggedInUserId}/alterar`, formDataPayload, {
+      const response = await axios.put(`https://two025-flink-startup-backend.onrender.com/api/users/${loggedInUserId}/alterar`, formDataPayload, {
         headers: {
           // Axios define 'Content-Type': 'multipart/form-data' automaticamente com FormData
           // Mas se você tiver um token de autenticação, adicione-o aqui:
